@@ -4,9 +4,9 @@ function Gallery() {
   // Data for the 4-grid layout (Left)
   const gridImages = [
     { id: 1, src: "https://i.ibb.co/HLFH1zy9/image.jpg" },
-    { id: 2, src: "https://i.ibb.co/kW0tqtZ/image.jpg" },
+    { id: 2, src: "https://gaatha.com/wp-content/uploads/2010/07/WOVEN-PIXELS.jpg" },
     { id: 3, src: "https://i.ibb.co/0RV7LZQ2/image.jpg" },
-    { id: 4, src: "https://i.ibb.co/wF4cYkKr/image.jpg" },
+    { id: 4, src: "https://images.news18.com/ibnlive/uploads/2025/08/image-2025-08-0ef78f3694fb557031eb4b2f550cfde7-4x3.jpg" },
   ];
 
   // Data for the narrow panels (Right)
