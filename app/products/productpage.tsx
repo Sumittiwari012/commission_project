@@ -102,6 +102,7 @@ function ProductPage() {
       <canvas ref={canvasRef} className="hidden" />
 
       {/* Hero */}
+      <div className="bg-[#e4c798]">
       <div className="relative w-full h-[70vh] bg-[#e4c798]">
         <img
                   src="https://www.pacificplace.com.hk/-/media/images/pacificplace2/thestylesheet_article/italy-shoot-q3-25/pacific-place-lake-shoot-2.ashx?rev=0e1cc1df717346f49cc9ccd819e44407&hash=908BDE90616D841C90C21877B2A48868"
@@ -127,7 +128,7 @@ function ProductPage() {
       </div>
 
       {/* Product Grid */}
-      <div className="max-w-7xl mx-auto px-6 py-16">
+      <div className="max-w-7xl mx-auto px-6 py-16 ">
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8">
           {products.map((item) => (
             <div key={item.id} className="group bg-slate-900 overflow-hidden border border-white/5">
@@ -150,6 +151,7 @@ function ProductPage() {
             </div>
           ))}
         </div>
+      </div>
       </div>
     </>
   );
