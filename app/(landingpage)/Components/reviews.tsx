@@ -14,8 +14,7 @@ function Reviews() {
     { id: 7, name: "David Vance", role: "Design Lead", text: "Bold choices and a sophisticated palette. This brand understands the modern minimalist." }
   ];
 
-  // Helper function to handle both directions
-  const handleScroll = (direction:string) => {
+  const handleScroll = (direction: string) => {
     if (sliderRef.current) {
       const scrollAmount = direction === "left" ? -400 : 400;
       sliderRef.current.scrollBy({ left: scrollAmount, behavior: "smooth" });
@@ -66,25 +65,35 @@ function Reviews() {
           </div>
         </div>
 
-        {/* Slider Container */}
+        {/* Slider Container - Scrollbar Hidden via Arbitrary Variants */}
         <div
           ref={sliderRef}
-          className="flex gap-6 overflow-x-auto no-scrollbar
-                     scroll-smooth snap-x snap-mandatory pb-8"
+          className="flex gap-6 overflow-x-auto scroll-smooth snap-x snap-mandatory pb-8
+                     [&::-webkit-scrollbar]:hidden [scrollbar-width:none] [-ms-overflow-style:none]"
         >
           {reviews.map((item) => (
-            <div key={item.id} className="min-w-[calc(25%-1.25rem)] snap-start bg-slate-900 border border-white/5 p-8 rounded-2xl flex flex-col justify-between hover:border-blue-500/50 transition-all duration-300 group">
+            <div
+              key={item.id}
+              className="min-w-[calc(25%-1.25rem)] snap-start
+                         bg-slate-900 p-8 rounded-2xl
+                         border border-white/5 hover:border-blue-500/50
+                         transition-all duration-300 shadow-xl group"
+            >
+              <div className="text-blue-500 mb-4 text-lg">★★★★★</div>
+              <p className="text-slate-300 italic mb-8 leading-relaxed h-24 overflow-hidden">
+                {item.text}
+              </p>
+              <div className="flex items-center gap-4">
+                <div className="w-12 h-12 rounded-full bg-gradient-to-br from-blue-600 to-indigo-800" />
                 <div>
-                    <div className="flex text-blue-500 mb-4 text-xs">★★★★★</div>
-                    <p className="text-slate-300 italic mb-8">{item.text}</p>
+                  <h4 className="text-white font-bold text-sm leading-none mb-1">
+                    {item.name}
+                  </h4>
+                  <p className="text-slate-500 text-xs font-medium uppercase tracking-tighter">
+                    {item.role}
+                  </p>
                 </div>
-                <div className="flex items-center gap-4">
-                    <div className="w-10 h-10 rounded-full bg-rose-600"></div>
-                    <div>
-                        <h4 className="text-white font-bold text-sm">{item.name}</h4>
-                        <p className="text-slate-500 text-xs">{item.role}</p>
-                    </div>
-                </div>
+              </div>
             </div>
           ))}
         </div>

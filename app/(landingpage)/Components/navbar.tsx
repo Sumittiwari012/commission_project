@@ -1,3 +1,4 @@
+import Link from "next/dist/client/link"
 
 function navbar() {
   return (
@@ -10,7 +11,7 @@ function navbar() {
         </a>
 
         <div className="hidden md:flex items-center gap-10 text-sm font-medium text-gray-200">
-          <a href="#welcome" className="hover:text-blue-400 transition-colors">Product</a>
+          <Link href="/products">Products</Link>
           <a href="#shop" className="hover:text-blue-400 transition-colors">Collections</a>
           <a href="#gallery" className="hover:text-blue-400 transition-colors">Login/SignUp</a>
         </div>
