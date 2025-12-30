@@ -1,5 +1,5 @@
-import Footer from '@/app/(landingpage)/Components/footer'
-import Navbar from '@/app/(landingpage)/Components/navbar'
+import Footer from '@/app/Components/footer'
+import Navbar from '@/app/Components/navbar'
 import React from 'react'
 import CollectionPdt from './collectionpdt';
 

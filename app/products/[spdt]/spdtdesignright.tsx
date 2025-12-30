@@ -1,3 +1,4 @@
+import Link from 'next/link';
 import React from 'react'
 interface inputprops{
         label:string;
@@ -65,9 +66,11 @@ function spdtdesignright({label, price}:inputprops) {
           <button className="w-full py-4 border border-black text-[11px] uppercase tracking-[0.3em] font-bold hover:bg-black hover:text-white transition-all duration-300">
             Add to Studio Bag
           </button>
-          <button className="w-full py-4 bg-black text-white text-[11px] uppercase tracking-[0.3em] font-bold hover:bg-slate-800 transition-all">
-            Buy it Now
-          </button>
+          <Link href="/checkout">
+            <button className="w-full py-4 bg-black text-white text-[11px] uppercase tracking-[0.3em] font-bold hover:bg-slate-800 transition-all">
+              Buy it Now
+            </button>
+          </Link>
         </div>
 
         {/* 5. Product Details (Collapsible/List Style) */}

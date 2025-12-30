@@ -1,4 +1,5 @@
-import Link from "next/dist/client/link"
+"use client"
+import Link from "next/link"
 
 function navbar() {
   return (
@@ -23,7 +24,7 @@ function navbar() {
           <Link href="/collections/new-arrivals" className="text-black transition-colors">New Arrivals</Link>
           <Link href="/collections/sale" className="text-black transition-colors">Sale</Link>
           <Link href="/collections" className="text-black transition-colors">Collections</Link>
-          <a href="#" className="text-black transition-colors">Login/Signup</a>
+          <Link href="/auth/login" className="text-black transition-colors">Login/Signup</Link>
         </div>
         
       </div>

@@ -1,6 +1,6 @@
 import ProductPage from "./productpage"
-import Navbar from "@/app/(landingpage)/Components/navbar"
-import Footer from "@/app/(landingpage)/Components/footer"
+import Navbar from "@/app/Components/navbar"
+import Footer from "@/app/Components/footer"
 function page() {
   return (
     <>

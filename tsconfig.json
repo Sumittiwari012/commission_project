@@ -29,6 +29,6 @@
     ".next/types/**/*.ts",
     ".next/dev/types/**/*.ts",
     "**/*.mts"
-, "app/products/[spdt]"  ],
+, "app/products/[spdt]", "app/auth/login"  ],
   "exclude": ["node_modules"]
 }

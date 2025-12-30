@@ -1,6 +1,6 @@
 import React from 'react'
-import Navbar from '../(landingpage)/Components/navbar'
-import Footer from '../(landingpage)/Components/footer'
+import Navbar from '../Components/navbar'
+import Footer from '../Components/footer'
 import ProductPage from '../products/productpage'
 function page() {
     

@@ -1,8 +1,8 @@
 import Suggestion from './suggestion';
 import React from 'react'
 import Spdtdesign from './spdtdesign';
-import Navbar from '@/app/(landingpage)/Components/navbar';
-import Footer from '@/app/(landingpage)/Components/footer';
+import Navbar from '@/app/Components/navbar';
+import Footer from '@/app/Components/footer';
 async function page({params}:{params:Promise<{spdt:string}>}) {
     const {spdt} =(await  params);
     const parts=spdt.split("-");
