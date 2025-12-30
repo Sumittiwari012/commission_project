@@ -1,8 +1,10 @@
 "use client"
 import Link from "next/link";
 import { useState } from "react";
-
-function ProductPage() {
+interface CollectionPdtProps {
+    category?: string;
+}
+function CollectionPdt({ category }: CollectionPdtProps) {
     type Product = {
   id: number;
   src: string;
@@ -28,6 +30,13 @@ function ProductPage() {
                   alt="Hero Image"
                   className="w-full h-full object-cover transition-all duration-1000 group-hover:scale-105"
                 />
+        <div className="absolute inset-0 flex flex-col items-center justify-center text-white text-center px-4">
+        <h2 className="text-4xl md:text-6xl font-serif italic tracking-tight mb-8">
+            {category ? category : "Collection"}
+        </h2>
+        <div className="h-[1px] w-12 bg-white/50 group-hover:w-24 transition-all duration-700" />
+    </div>
+        
       </div>
       <div className="sticky top-[88px] z-[50] h-[7vh] flex items-center justify-center">
         <div className="flex gap-4 bg-white/10 px-6 py-3 rounded-full border backdrop-blur-xl border-white/10">
@@ -75,4 +84,4 @@ function ProductPage() {
   );
 }
 
-export default ProductPage;
+export default CollectionPdt;

@@ -15,7 +15,7 @@ function Shop() {
   return (
     <div
       id="shop"
-      className="sticky top-0 w-full min-h-screen bg-[#603732]
+      className="sticky top-0 w-full min-h-screen bg-[#708090]
                  shadow-[0_-20px_50px_rgba(0,0,0,0.5)]
                  overflow-hidden"
     >

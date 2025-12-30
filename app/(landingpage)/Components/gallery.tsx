@@ -18,7 +18,7 @@ function Gallery() {
   ];
 
   return (
-    <div id="gallery" className="sticky top-0 flex flex-col md:flex-row h-screen w-full overflow-hidden bg-slate-950 font-['Instrument_Sans']">
+    <div id="gallery" className="sticky top-0 flex flex-col md:flex-row h-screen w-full overflow-hidden bg-[#808080] font-['Instrument_Sans']">
       
       {/* 1. Large Background Title */}
       <div className="absolute top-10 left-10 z-0 opacity-5 pointer-events-none select-none">
@@ -33,7 +33,7 @@ function Gallery() {
           {gridImages.map((item) => (
             <div 
               key={item.id} 
-              className="relative group overflow-hidden rounded-2xl bg-slate-900 border border-white/10"
+              className="relative group overflow-hidden rounded-2xl bg-[#808080] border border-white/10"
             >
               <img 
                 src={item.src} 
@@ -55,12 +55,11 @@ function Gallery() {
       <div className="relative z-10 w-full md:w-[35%] h-full flex flex-col items-center justify-center p-8 bg-slate-900/30 backdrop-blur-3xl border-l border-white/10">
         
         {/* Floating "Gallery" Heading */}
-        <div className="mb-10 text-center">
-            <h2 className="text-6xl font-black italic tracking-tighter text-white uppercase leading-none">
-                Gallery
-            </h2>
-            <div className="h-1 w-16 bg-amber-600 mx-auto mt-4 rounded-full"></div>
-        </div>
+        <div className="absolute top-8 left-1/2 -translate-x-1/2 z-20">
+        <h2 className="font-['Instrument_Sans'] text-[50px] font-normal text-[#f6eeee]">
+         Gallery
+        </h2>
+      </div>
 
         {modelPanels.map((panel) => (
           <div key={panel.id} className="relative w-full max-w-sm h-[75%] group rounded-[2.5rem] overflow-hidden shadow-2xl border border-white/20">

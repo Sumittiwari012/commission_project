@@ -25,7 +25,7 @@ function Reviews() {
     <div
       id="reviews"
       className="sticky top-0 flex min-h-screen w-full flex-col items-center justify-center
-                 bg-slate-950 shadow-[0_-20px_50px_rgba(0,0,0,0.5)]"
+                 bg-[#708090] shadow-[0_-20px_50px_rgba(0,0,0,0.5)]"
     >
       <div className="max-w-7xl mx-auto w-full px-8">
         {/* Header */}
