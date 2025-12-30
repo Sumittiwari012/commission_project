@@ -1,4 +1,5 @@
 "use client"
+import Link from "next/link";
 import { useEffect, useRef, useState } from "react";
 
 function ProductPage() {
@@ -11,7 +12,7 @@ function ProductPage() {
 };
   const canvasRef = useRef<HTMLCanvasElement | null>(null);
 
-
+    
   const [products, setProducts] = useState<Product[]>([
     { id: 1, src: "https://www.hancockfashion.com/cdn/shop/files/5579BGREEN_1_M.jpg?v=1734411915", label: "Emerald Silk", price: "$240", luminosity: 0 },
     { id: 2, src: "https://thehouseofrare.com/cdn/shop/products/HERO_76c59c07-ac65-40f5-96e4-1de84fcdee92.jpg?v=1743587556", label: "Midnight Coat", price: "$310", luminosity: 0 },
@@ -95,14 +96,14 @@ function ProductPage() {
 
   processImages();
 }, []);
-
+    
   return (
     <>
       {/* Hidden canvas */}
       <canvas ref={canvasRef} className="hidden" />
 
       {/* Hero */}
-      <div className="bg-[#e4c798]">
+      <div className="bg-[#E5E4E2]">
       <div className="relative w-full h-[70vh] bg-[#e4c798]">
         <img
                   src="https://www.pacificplace.com.hk/-/media/images/pacificplace2/thestylesheet_article/italy-shoot-q3-25/pacific-place-lake-shoot-2.ashx?rev=0e1cc1df717346f49cc9ccd819e44407&hash=908BDE90616D841C90C21877B2A48868"
@@ -112,8 +113,8 @@ function ProductPage() {
       </div>
 
       {/* Sticky Filter */}
-      <div className="sticky top-[88px] z-[50] h-[7vh] flex items-center justify-center backdrop-blur-xl border-b border-white/10">
-        <div className="flex gap-4 bg-white/10 px-6 py-3 rounded-full border border-white/10">
+      <div className="sticky top-[88px] z-[50] h-[7vh] flex items-center justify-center">
+        <div className="flex gap-4 bg-white/10 px-6 py-3 rounded-full border backdrop-blur-xl border-white/10">
           <select className="bg-transparent text-xs text-black font-bold uppercase tracking-widest focus:outline-none">
             <option>Newest</option>
             <option>Price: Low to High</option>
@@ -128,30 +129,35 @@ function ProductPage() {
       </div>
 
       {/* Product Grid */}
-      <div className="max-w-7xl mx-auto px-6 py-16 ">
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8">
-          {products.map((item) => (
-            <div key={item.id} className="group bg-slate-900 overflow-hidden border border-white/5">
-              <div className="aspect-[3/4] overflow-hidden">
-                <img
-                  src={item.src}
-                  alt={item.label}
-                  className="w-full h-full object-cover transition-all duration-1000 group-hover:scale-105"
-                />
-              </div>
+      <div className="max-w-7xl mx-auto px-6 py-16">
+  {/* Grid container with standard gaps */}
+  <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-x-8 gap-y-12">
+    {products.map((item) => (
+      <div key={item.id} className="group cursor-pointer">
+        {/* Image Container: Full-bleed within the card, no border */}
+        <div className="aspect-[3/4] overflow-hidden bg-gray-100">
+          <Link href={`/products/${item.label.toLowerCase().replace(/\s+/g, '-')}-${item.id}`}>
+            <img
+              src={item.src}
+              alt={item.label}
+              className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"
+            />
+          </Link>
+        </div>
 
-              <div className="bg-white p-6 flex flex-col gap-1">
-                <h3 className="text-slate-950 text-sm font-normal uppercase tracking-wider">
-                  {item.label}
-                </h3>
-                <span className="text-slate-950 text-base font-normal">
-                  {item.price}
-                </span>
-              </div>
-            </div>
-          ))}
+        {/* Text Content: Centered, no background, specific typography */}
+        <div className="mt-6 text-center">
+          <h3 className="text-[15px] tracking-tight text-gray-600 font-light mb-1">
+            {item.label}
+          </h3>
+          <p className="text-[13px] font-bold tracking-widest uppercase text-gray-900">
+            {item.price}
+          </p>
         </div>
       </div>
+    ))}
+  </div>
+</div>
       </div>
     </>
   );
