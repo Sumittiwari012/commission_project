@@ -12,7 +12,7 @@ function AddSection({ imgurl, mobileImgUrl }: addsectionprops) {
            md:h-[70vh]: Returns to original height on laptops.
            sticky top-0: Maintains the stacking lookbook effect.
         */
-        <div className="sticky top-0 w-full h-screen md:h-[70vh]
+        <div className="relative sticky top-0 w-full h-screen md:h-[70vh]
                  shadow-[0_-20px_50px_rgba(0,0,0,0.5)]
                  overflow-hidden relative group cursor-pointer">
             

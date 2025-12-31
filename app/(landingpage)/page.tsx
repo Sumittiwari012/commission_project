@@ -2,9 +2,9 @@
 import Navbar from "../Components/navbar";
 import Footer from "../Components/footer";
 import Reviews from "../Components/reviews";
-import Styles from "../Components/styles";
+import Styles from "../Components/kidsstyle";
 import Welcome from "../Components/welcome";
-
+import WomenStyle from "../Components/womenstyle";
 import AddSection from "../Components/addsection";
 function page() {
   return (
@@ -20,7 +20,7 @@ function page() {
       mobileImgUrl2="https://images.pexels.com/photos/8421992/pexels-photo-8421992.jpeg"
       mobileImgUrl3="https://images.pexels.com/photos/6261907/pexels-photo-6261907.jpeg"
     />
-    <Styles
+    <WomenStyle
       imgurl1="https://images.pexels.com/photos/3626313/pexels-photo-3626313.jpeg"
       imgurl2="https://images.pexels.com/photos/7035487/pexels-photo-7035487.jpeg"
       imgurl3="https://images.pexels.com/photos/32558179/pexels-photo-32558179.jpeg"

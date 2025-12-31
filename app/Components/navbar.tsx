@@ -20,7 +20,7 @@ function Navbar() {
       <nav className="fixed top-0 left-0 right-0 z-[100] px-4 md:px-6 py-4">
         <div className="mx-auto max-w-7xl">
           {/* h-14 provides better touch targets for mobile than h-12 */}
-          <div className="flex h-14 items-center justify-between bg-white/40 md:bg-transparent backdrop-blur-md md:backdrop-blur-0 px-6 transition-all duration-500 rounded-full md:rounded-none border border-white/20 md:border-none shadow-sm md:shadow-none">
+          <div className="flex h-14 items-center justify-between  px-6 transition-all duration-500 rounded-full md:rounded-none border border-white/20 md:border-none shadow-sm md:shadow-none">
             
             {/* 2. MOBILE HAMBURGER (md:hidden) */}
             <button 
