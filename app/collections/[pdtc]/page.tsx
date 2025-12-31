@@ -8,7 +8,7 @@ async function page({params}:{params:Promise<{pdtc?:string}>}) {
   return (
     <>
       <Navbar/>
-   <CollectionPdt category={pdtc} />
+   <CollectionPdt category={pdtc || ''} />
    <Footer/>
     </>
   )
