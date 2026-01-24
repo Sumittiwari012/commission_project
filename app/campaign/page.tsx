@@ -1,9 +1,9 @@
 import React from 'react'
-import CheckOut from './checkoutpage';
+import Campaign from './campaign'
 function page() {
   return (
     <>
-      <CheckOut />
+    <Campaign/>
     </>
   )
 }

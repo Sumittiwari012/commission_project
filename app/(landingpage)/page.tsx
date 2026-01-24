@@ -2,16 +2,19 @@
 import Navbar from "../Components/navbar";
 import Footer from "../Components/footer";
 import Reviews from "../Components/reviews";
-import Styles from "../Components/kidsstyle";
+import Styles from "../Components/newcollectionad";
 import Welcome from "../Components/welcome";
-import WomenStyle from "../Components/womenstyle";
-import AddSection from "../Components/addsection";
+import WomenStyle from "../Components/campaignad";
+import Women_And_Kids from "../Components/women_and_kids";
+import Pdtgallery from "../Components/pdtgallery";
+import Curatelook from "../Components/curatelook";
+import Bestseller from "../Components/bestseller";
 function page() {
   return (
     <>
     <Navbar/>
     <Welcome/>
-    <AddSection imgurl="https://images.squarespace-cdn.com/content/v1/63810cc8347e214d6a1808a3/8dcdf168-1f1e-42ab-95f3-4e34eac60264/family-mum-child-garden-photography-plymouth-devon-1" mobileImgUrl="https://images.pexels.com/photos/8562095/pexels-photo-8562095.jpeg"/>
+    <Women_And_Kids imgurl="https://images.squarespace-cdn.com/content/v1/63810cc8347e214d6a1808a3/8dcdf168-1f1e-42ab-95f3-4e34eac60264/family-mum-child-garden-photography-plymouth-devon-1" mobileImgUrl="https://images.pexels.com/photos/8562095/pexels-photo-8562095.jpeg"/>
     <Styles
       imgurl1="https://www.ukmodels.co.uk/wp-content/uploads/2020/08/shutterstock_1489165622-scaled.jpg"
       imgurl2="https://media.istockphoto.com/id/524161710/photo/portrait-of-a-cute-little-girl-in-fashionable-clothes.jpg?s=612x612&w=0&k=20&c=OdFuuFqGR2UWD0UL7SnAV5mPzsWTwD5OVQASQGPz9Yw="
@@ -28,8 +31,19 @@ function page() {
       mobileImgUrl2="https://images.pexels.com/photos/1926769/pexels-photo-1926769.jpeg"
       mobileImgUrl3="https://images.pexels.com/photos/2916814/pexels-photo-2916814.jpeg"
     />
-    <AddSection imgurl="https://media.macphun.com/img/uploads/customer/blog/2091/16990126006544dff8587af4.49926191.jpg?q=85&w=1680" mobileImgUrl="https://images.pexels.com/photos/1631181/pexels-photo-1631181.jpeg"/>
-    
+    <Pdtgallery
+    imgurl1="https://images.pexels.com/photos/10584386/pexels-photo-10584386.jpeg"
+    imgurl2="https://images.pexels.com/photos/14610788/pexels-photo-14610788.jpeg"
+    imgurl3="https://images.pexels.com/photos/15235484/pexels-photo-15235484.jpeg"
+    imgurl4="https://images.pexels.com/photos/2364593/pexels-photo-2364593.jpeg"
+    imgurl5="https://images.pexels.com/photos/9132079/pexels-photo-9132079.jpeg"
+    imgurl6="https://images.pexels.com/photos/16825855/pexels-photo-16825855.jpeg"
+    imgurl7="https://images.pexels.com/photos/11326482/pexels-photo-11326482.jpeg"
+    imgurl8="https://images.pexels.com/photos/20323806/pexels-photo-20323806.jpeg"
+    imgurl9="https://images.pexels.com/photos/10572289/pexels-photo-10572289.jpeg"
+    /> 
+    <Curatelook/>
+    <Bestseller/>
     <Reviews/>
     <Footer/>
     </>

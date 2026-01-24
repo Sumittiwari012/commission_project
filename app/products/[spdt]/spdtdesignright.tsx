@@ -1,10 +1,42 @@
+"use client";
+import { privateApi } from '@/lib/app';
 import Link from 'next/link';
-import React from 'react'
+import { useEffect, useState } from 'react'
 interface inputprops{
-        label:string;
-        price:string;
+        productid:number;
+        productName: string;
+        price: number;
+        color: string;
+        description: string;
+        composition: string;
+        care: string;
+        fit: string;
+        cartItemExists:boolean;
       }
-function spdtdesignright({label, price}:inputprops) {
+function SpdtDesignRight({productid,productName, price, color, description, composition, care, fit,cartItemExists}:inputprops) {
+
+const [isAdded, setIsAdded] = useState<boolean>(cartItemExists);
+
+
+const handleAddToBag = async () => {
+  if (isAdded) return;
+
+  try {
+    await privateApi.post(
+      '/User/addToCart',
+      null,
+      { params: { productId: productid } }
+    );
+
+    setIsAdded(true); // ✅ change color + disable
+  } catch (error) {
+    console.error("Failed to add item to cart", error);
+  }
+};
+useEffect(() => {
+  setIsAdded(cartItemExists);
+}, [cartItemExists]);
+
   return (
     <>
 <section className="w-full md:w-[53%] bg-white p-6 md:p-16 lg:p-24 overflow-y-auto">
@@ -18,7 +50,7 @@ function spdtdesignright({label, price}:inputprops) {
             <a href="#" className="hover:text-black">Contemporary</a>
           </nav>
           <h1 className="text-3xl md:text-4xl font-light tracking-widest text-slate-900 uppercase mb-2">
-           {label}
+           {productName}
           </h1>
           <p className="text-xl text-slate-600 font-medium">{price}</p>
         </div>
@@ -26,12 +58,12 @@ function spdtdesignright({label, price}:inputprops) {
         {/* 2. Color Selection (Hardcoded Swatch) */}
         <div className="mb-8">
           <p className="text-[11px] uppercase tracking-widest font-bold mb-4">
-            Color: <span className="font-normal text-gray-500">White</span>
+            Color: <span className="font-normal text-gray-500">{color}</span>
           </p>
           <div className="flex gap-3">
             {/* Active Color */}
             <button className="w-14 h-18 border border-black p-1 transition-all">
-              <div className="w-full h-full bg-[#F5F5F5] flex items-center justify-center text-[10px] text-gray-400">
+              <div className="w-full h-full bg-[{color}] flex items-center justify-center text-[10px] text-gray-400">
             
               </div>
             </button>
@@ -63,10 +95,22 @@ function spdtdesignright({label, price}:inputprops) {
 
         {/* 4. Action Buttons (Standard transactional UI) */}
         <div className="space-y-3 mb-12">
-          <button className="w-full py-4 border border-black text-[11px] uppercase tracking-[0.3em] font-bold hover:bg-black hover:text-white transition-all duration-300">
-            Add to Studio Bag
-          </button>
-          <Link href="/checkout">
+          <button
+  disabled={isAdded}
+  onClick={handleAddToBag}
+  className={`w-full py-4 text-[11px] uppercase tracking-[0.3em] font-bold
+    transition-colors duration-300
+    ${
+      isAdded
+        ? "bg-green-600 text-white cursor-not-allowed opacity-80"
+        : "bg-black text-white cursor-pointer"
+    }
+  `}
+>
+  {isAdded ? "Added to Bag" : "Add to Studio Bag"}
+</button>
+
+          <Link href={`/checkout/${productid}`}>
             <button className="w-full py-4 bg-black text-white text-[11px] uppercase tracking-[0.3em] font-bold hover:bg-slate-800 transition-all">
               Buy it Now
             </button>
@@ -76,22 +120,21 @@ function spdtdesignright({label, price}:inputprops) {
         {/* 5. Product Details (Collapsible/List Style) */}
         <div className="border-t border-gray-100 pt-10">
           <p className="text-sm leading-relaxed text-slate-600 font-light mb-8">
-            Round neck top crafted in handloom fabric with selvedge detailing at the hem and open sleeves. 
-            Panelled construction with gathers placed along the sides, accented with signature floral cross-stitch embroidery.
+            {description}
           </p>
           
           <div className="space-y-4">
             <div className="flex justify-between items-center border-b border-gray-50 pb-2">
               <span className="text-[10px] uppercase tracking-widest text-gray-400">Composition</span>
-              <span className="text-[11px] font-medium text-slate-900">100% Handloom Cotton</span>
+              <span className="text-[11px] font-medium text-slate-900">{composition}</span>
             </div>
             <div className="flex justify-between items-center border-b border-gray-50 pb-2">
               <span className="text-[10px] uppercase tracking-widest text-gray-400">Care</span>
-              <span className="text-[11px] font-medium text-slate-900">Dry Clean Only</span>
+              <span className="text-[11px] font-medium text-slate-900">{care}</span>
             </div>
             <div className="flex justify-between items-center border-b border-gray-50 pb-2">
               <span className="text-[10px] uppercase tracking-widest text-gray-400">Fit</span>
-              <span className="text-[11px] font-medium text-slate-900">Relaxed Fit</span>
+              <span className="text-[11px] font-medium text-slate-900">{fit}</span>
             </div>
           </div>
         </div>
@@ -102,4 +145,4 @@ function spdtdesignright({label, price}:inputprops) {
   )
 }
 
-export default spdtdesignright
+export default SpdtDesignRight

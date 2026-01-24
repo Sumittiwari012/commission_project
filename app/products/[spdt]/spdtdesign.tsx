@@ -1,10 +1,57 @@
-import React from 'react'
+"use client"
+import React, { useEffect, useState } from 'react'
 import Spdtdesignright from './spdtdesignright';
 import suggestion from './suggestion';
+import app from "@/lib/app";
+import { privateApi } from '@/lib/app';
 interface inputprops{
         idval:number;
       }
-function spdtdesign({idval}:inputprops) {
+function Spdtdesign({ idval }: inputprops) {
+ type ProductResponse = {
+  product: {
+    productId: number;
+    productName: string;
+    price: number;
+    productPageImageUrl: string;
+    color: string;
+    description: string;
+    composition: string;
+    care: string;
+    fit: string;
+  };
+  pdtimages: string[];
+  cartitemexists: boolean;
+};
+
+  const [products, setProducts] = useState<ProductResponse | null>(null);
+  const [incart,setincart]= useState<boolean>(false);
+ 
+useEffect(() => {
+  if (!idval) return;
+
+  const fetchData = async () => {
+    try {
+      const response1=await app.get<ProductResponse>("/Product/productById", {
+          params: { pid: idval }, // ✅ query param
+        });
+        
+      const response2=await privateApi.get<boolean>("/User/productExistsInCart", {
+          params: { productId: idval }, // ✅ query param
+        });
+
+      setProducts(response1.data);
+      setincart(response2.data);
+    } catch (error) {
+      console.error("Error fetching product data:", error);
+    }
+  };
+
+  fetchData();
+}, [idval]);
+
+
+
      const data = [
         { id: 1, src: "https://www.hancockfashion.com/cdn/shop/files/5579BGREEN_1_M.jpg?v=1734411915", label: "Emerald Silk", price: "$240", luminosity: 0 },
         { id: 2, src: "https://thehouseofrare.com/cdn/shop/products/HERO_76c59c07-ac65-40f5-96e4-1de84fcdee92.jpg?v=1743587556", label: "Midnight Coat", price: "$310", luminosity: 0 },
@@ -49,7 +96,7 @@ function spdtdesign({idval}:inputprops) {
           className="w-full min-w-full md:min-w-0 h-full snap-center relative flex items-center justify-center"
         >
           <img
-            src={data[idval - 1]?.src}
+            src={products?.product.productPageImageUrl}
             className="w-full h-full object-cover"
             alt={`Product view ${i + 1}`}
           />
@@ -74,7 +121,23 @@ function spdtdesign({idval}:inputprops) {
           {/* RIGHT SECTION: Product Details */}
          
     
-    <Spdtdesignright label={data[idval - 1]?.label} price={data[idval - 1]?.price} />
+   
+
+{products ? (
+  <Spdtdesignright
+  productid={products.product.productId}
+  productName={products.product.productName}
+  price={products.product.price}
+  color={products.product.color}
+  description={products.product.description}
+  composition={products.product.composition}
+  care={products.product.care}
+  fit={products.product.fit}
+  cartItemExists={incart}
+/>
+) : (
+  <div className="flex items-center justify-center">Loading...</div>
+)}
     
   </main>
 
@@ -83,4 +146,4 @@ function spdtdesign({idval}:inputprops) {
   )
 }
 
-export default spdtdesign
+export default Spdtdesign

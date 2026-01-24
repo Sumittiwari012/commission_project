@@ -3,86 +3,143 @@ import React from 'react'
 function Footer() {
   return (
     /* md:sticky: keeps the stacking effect on laptops.
-       relative: allows natural flow on mobile to prevent scrolling issues.
+       relative: allows natural flow on mobile.
     */
-    <div className="relative md:sticky top-0 flex min-h-screen w-full flex-col items-center justify-center bg-gray-900 shadow-[0_-20px_50px_rgba(0,0,0,0.5)]">
-      <footer className="w-full bg-slate-950 text-slate-400 py-16 px-6 md:px-8 border-t border-white/5">
+<>      
+      {/* --- MOBILE VERSION (Original Design) --- */}
+      <footer className="block md:hidden w-full bg-slate-950 text-slate-400 py-16 px-6 border-t border-white/5">
         <div className="max-w-7xl mx-auto">
-          
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-12 mb-16">
+          <div className="flex flex-col items-center text-center">
+            <div className="flex items-center gap-2 mb-6">
+              <div className="w-8 h-8 bg-blue-600 rounded-lg shadow-[0_0_15px_rgba(37,99,235,0.5)]"></div>
+              <span className="text-white text-2xl font-black tracking-tighter uppercase italic">Wrii Studio</span>
+            </div>
+            <p className="text-sm leading-relaxed max-w-sm opacity-80 mb-8">
+              Crafting high-end digital experiences and premium editorial collections.
+            </p>
             
-            {/* 1. BRAND SECTION - Centered on mobile */}
-            <div className="col-span-1 md:col-span-2 lg:col-span-1 flex flex-col items-center md:items-start text-center md:text-left">
-              <div className="flex items-center gap-2 mb-6">
-                <div className="w-8 h-8 bg-blue-600 rounded-lg shadow-[0_0_15px_rgba(37,99,235,0.5)]"></div>
-                <span className="text-white text-2xl font-black tracking-tighter uppercase italic">Wrii Studio</span>
+            <div className="grid grid-cols-2 gap-8 w-full mb-12">
+              <div className="space-y-4">
+                <h4 className="text-white font-bold uppercase tracking-widest text-xs">Explore</h4>
+                <ul className="space-y-2 text-xs">
+                  <li><a href="#">Latest Works</a></li>
+                  <li><a href="#">Studio Journal</a></li>
+                </ul>
               </div>
-              <p className="text-sm leading-relaxed max-w-sm opacity-80">
-                Crafting high-end digital experiences and premium editorial collections. Based in the heart of modern minimalism.
-              </p>
-              
-              {/* Social Icons - Increased touch target for mobile */}
-              <div className="flex gap-6 mt-8">
-                <a href="#" className="w-12 h-12 rounded-full border border-white/10 flex items-center justify-center hover:bg-white/10 transition-all active:scale-90">
-                  <svg className="w-5 h-5 fill-white" viewBox="0 0 24 24"><path d="M24 4.557c-.883.392-1.832.656-2.828.775 1.017-.609 1.798-1.574 2.165-2.724-.951.564-2.005.974-3.127 1.195-.897-.957-2.178-1.555-3.594-1.555-3.179 0-5.515 2.966-4.797 6.045-4.091-.205-7.719-2.165-10.148-5.144-1.29 2.213-.669 5.108 1.523 6.574-.806-.026-1.566-.247-2.229-.616-.054 2.281 1.581 4.415 3.949 4.89-.693.188-1.452.232-2.224.084.626 1.956 2.444 3.379 4.6 3.419-2.07 1.623-4.678 2.348-7.29 2.04 2.179 1.397 4.768 2.212 7.548 2.212 9.142 0 14.307-7.721 13.995-14.646.962-.695 1.797-1.562 2.457-2.549z"/></svg>
-                </a>
-                <a href="#" className="w-12 h-12 rounded-full border border-white/10 flex items-center justify-center hover:bg-white/10 transition-all active:scale-90">
-                  <svg className="w-5 h-5 fill-white" viewBox="0 0 24 24"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z"/></svg>
-                </a>
+              <div className="space-y-4">
+                <h4 className="text-white font-bold uppercase tracking-widest text-xs">Company</h4>
+                <ul className="space-y-2 text-xs">
+                  <li><a href="#">About Us</a></li>
+                  <li><a href="#">Contact</a></li>
+                </ul>
               </div>
             </div>
 
-            {/* 2. EXPLORE - Links stacked cleanly */}
-            <div className="text-center md:text-left">
-              <h4 className="text-white font-bold uppercase tracking-widest text-sm mb-6">Explore</h4>
-              <ul className="space-y-4 text-sm">
-                <li><a href="#" className="hover:text-blue-500 transition-colors block py-1">Latest Works</a></li>
-                <li><a href="#" className="hover:text-blue-500 transition-colors block py-1">Studio Journal</a></li>
-                <li><a href="#" className="hover:text-blue-500 transition-colors block py-1">Collection 2025</a></li>
-                <li><a href="#" className="hover:text-blue-500 transition-colors block py-1">Design Ethics</a></li>
-              </ul>
+            <form className="w-full max-w-sm flex flex-col gap-3 mb-10">
+              <input 
+                type="email" 
+                placeholder="Email address" 
+                className="w-full bg-white/5 border border-white/10 rounded-xl px-4 py-4 text-sm focus:outline-none focus:border-blue-600"
+              />
+              <button className="w-full bg-blue-600 text-white font-bold py-4 rounded-xl text-sm">
+                Subscribe
+              </button>
+            </form>
+
+            <div className="flex gap-6 mb-10">
+               {/* Social Icons from original mobile */}
+               <div className="w-10 h-10 rounded-full border border-white/10 flex items-center justify-center">
+                 <svg className="w-4 h-4 fill-white" viewBox="0 0 24 24"><path d="M24 4.557c-.883.392-1.832.656-2.828.775 1.017-.609 1.798-1.574 2.165-2.724-.951.564-2.005.974-3.127 1.195-.897-.957-2.178-1.555-3.594-1.555-3.179 0-5.515 2.966-4.797 6.045-4.091-.205-7.719-2.165-10.148-5.144-1.29 2.213-.669 5.108 1.523 6.574-.806-.026-1.566-.247-2.229-.616-.054 2.281 1.581 4.415 3.949 4.89-.693.188-1.452.232-2.224.084.626 1.956 2.444 3.379 4.6 3.419-2.07 1.623-4.678 2.348-7.29 2.04 2.179 1.397 4.768 2.212 7.548 2.212 9.142 0 14.307-7.721 13.995-14.646.962-.695 1.797-1.562 2.457-2.549z"/></svg>
+               </div>
             </div>
 
-            {/* 3. COMPANY */}
-            <div className="text-center md:text-left">
-              <h4 className="text-white font-bold uppercase tracking-widest text-sm mb-6">Company</h4>
-              <ul className="space-y-4 text-sm">
-                <li><a href="#" className="hover:text-blue-500 transition-colors block py-1">About Us</a></li>
-                <li><a href="#" className="hover:text-blue-500 transition-colors block py-1">Careers</a></li>
-                <li><a href="#" className="hover:text-blue-500 transition-colors block py-1">Press Kit</a></li>
-                <li><a href="#" className="hover:text-blue-500 transition-colors block py-1">Contact</a></li>
-              </ul>
-            </div>
-
-            {/* 4. NEWSLETTER - Full width form */}
-            <div className="text-center md:text-left">
-              <h4 className="text-white font-bold uppercase tracking-widest text-sm mb-6">Newsletter</h4>
-              <p className="text-xs mb-6 max-w-xs mx-auto md:mx-0">Join 10,000+ creators for weekly design insights.</p>
-              <form className="flex flex-col gap-3 max-w-sm mx-auto md:mx-0">
-                <input 
-                  type="email" 
-                  placeholder="Email address" 
-                  className="w-full bg-white/5 border border-white/10 rounded-xl px-4 py-4 text-sm focus:outline-none focus:border-blue-600 transition-colors placeholder:text-slate-600"
-                />
-                <button className="w-full bg-blue-600 hover:bg-blue-700 text-white font-bold py-4 rounded-xl text-sm transition-all active:scale-[0.98]">
-                  Subscribe
-                </button>
-              </form>
-            </div>
+            <p className="text-[10px] uppercase tracking-widest opacity-60">© 2025 Wrii Studio</p>
           </div>
-
-          {/* FOOTER BOTTOM - Vertical on mobile, horizontal on desktop */}
-          <div className="pt-10 border-t border-white/5 flex flex-col md:flex-row justify-between items-center gap-8 text-[10px] md:text-xs uppercase tracking-[0.2em] font-medium text-center md:text-left">
-            <p className="opacity-60">&copy; 2025 Wrii Studio. All rights reserved.</p>
-            <div className="flex gap-8">
-              <a href="#" className="hover:text-white transition-colors">Privacy Policy</a>
-              <a href="#" className="hover:text-white transition-colors">Terms of Service</a>
-            </div>
-          </div>
-
         </div>
       </footer>
-    </div>
+
+      {/* --- DESKTOP VERSION (New Design) --- */}
+      <footer className="hidden md:block w-full bg-[#1a1a1a] text-[#b0b0b0] py-16 px-16 border-t border-gray-800 relative">
+        <div className="max-w-7xl mx-auto grid grid-cols-4 gap-12">
+            
+            {/* Brand & Newsletter */}
+            <div className="space-y-6">
+                <div className="mb-6">
+                   <h2 className="text-white text-4xl font-light tracking-tighter uppercase">Wrii Studio</h2>
+                </div>
+                <p className="text-white text-[11px] font-bold tracking-[0.2em]">JOIN THE GANG</p>
+                <div className="flex">
+                    <input 
+                      type="email" 
+                      placeholder="Your email" 
+                      className="bg-white text-black text-sm px-4 py-3 w-full outline-none" 
+                    />
+                    <button className="bg-[#111111] text-white text-xs px-6 py-3 font-bold tracking-widest hover:bg-black transition-colors">
+                      SUBMIT
+                    </button>
+                </div>
+            </div>
+
+            {/* Company */}
+            <div>
+                <h4 className="text-white text-[11px] font-bold tracking-[0.2em] mb-6 uppercase">Company</h4>
+                <ul className="text-[11px] space-y-3 tracking-wide font-medium">
+                    <li><a href="#" className="hover:text-white transition-colors">LEGAL & PRIVACY</a></li>
+                    <li><a href="#" className="hover:text-white transition-colors">TERMS & CONDITIONS</a></li>
+                    <li><a href="#" className="hover:text-white transition-colors">CONTACT US</a></li>
+                    <li><a href="#" className="hover:text-white transition-colors">CAREERS</a></li>
+                    <li><a href="#" className="hover:text-white transition-colors">REQUEST AN APPOINTMENT</a></li>
+                    <li><a href="#" className="hover:text-white transition-colors">STORE LOCATOR</a></li>
+                    <li><a href="#" className="hover:text-white transition-colors">FAQ'S</a></li>
+                </ul>
+            </div>
+
+            {/* Policies */}
+            <div>
+                <h4 className="text-white text-[11px] font-bold tracking-[0.2em] mb-6 uppercase">Policies</h4>
+                <ul className="text-[11px] space-y-3 tracking-wide font-medium">
+                    <li><a href="#" className="hover:text-white transition-colors">SHIPPING TERMS</a></li>
+                    <li><a href="#" className="hover:text-white transition-colors">PAYMENT TERMS</a></li>
+                    <li><a href="#" className="hover:text-white transition-colors">RETURN & EXCHANGE</a></li>
+                </ul>
+            </div>
+
+            {/* Address & Socials */}
+            <div className="space-y-8">
+                <div>
+                    <h4 className="text-white text-[11px] font-bold tracking-[0.2em] mb-4 uppercase">Address</h4>
+                    <div className="text-[11px] leading-relaxed font-medium">
+                        <p className="text-white mb-1">Layap Hgnis Apparels Pvt. Ltd.</p>
+                        <p className="opacity-80">Plot No 10 & 11 Gurkul Inderprasth Industrial Estate, Faridabad - 121003, Haryana - 06</p>
+                        <p className="mt-4">Ph No. <span className="text-white">0129-4092300</span></p>
+                        <p>GST- 06AAACL6708M1ZB</p>
+                    </div>
+                </div>
+                
+                <div className="flex items-center space-x-4">
+                    <span className="text-white text-[10px] font-bold tracking-[0.1em]">STAY CONNECTED</span>
+                    <div className="flex space-x-2">
+                        {/* Placeholder for FontAwesome Icons - Ensure FontAwesome is loaded in your index.html */}
+                        <a href="#" className="w-8 h-8 flex items-center justify-center border border-white/10 text-xs hover:bg-white hover:text-black transition-all">
+                          <i className="fab fa-facebook-f"></i>
+                        </a>
+                        <a href="#" className="w-8 h-8 flex items-center justify-center border border-white/10 text-xs hover:bg-white hover:text-black transition-all">
+                          <i className="fab fa-instagram"></i>
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        {/* WhatsApp Floating Button */}
+        <div className="absolute bottom-8 right-12 flex items-center">
+            <div className="relative bg-[#25D366] w-14 h-14 rounded-full flex items-center justify-center text-white text-2xl shadow-2xl cursor-pointer hover:scale-110 transition-transform">
+                <i className="fab fa-whatsapp"></i>
+                <span className="absolute -top-1 -right-1 bg-red-600 text-[10px] text-white w-5 h-5 rounded-full flex items-center justify-center font-bold border-2 border-[#1a1a1a]">1</span>
+            </div>
+        </div>
+      </footer>
+    </>
   )
 }
 

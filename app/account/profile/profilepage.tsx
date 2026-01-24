@@ -1,9 +1,91 @@
-"use client";
-
+"use client"
 import Link from 'next/link';
-import React from 'react';
+import { useAuth } from '@/context/AuthContext'; // Import your context
+import React, { useEffect, useState } from 'react';
+import { useRouter } from 'next/navigation';
+import { privateApi,updateMemoryToken } from '@/lib/app';
 
 function ProfilePage() {
+type UserProfile = {
+  firstName: string;
+  lastName: string;
+  email: string;
+  phoneNumber: string;
+  dateOfBirth: string;
+  address1: string;
+  address2: string;
+  pinCode: number;
+  stateName: string;
+};
+
+type CartItem = {
+  id: number;
+  productName: string;
+  
+  price: number;
+  productPageImageUrl: string;
+  createdAt: string;
+};
+
+type PurchaseItem = {
+  id: number;
+  productName: string;
+  price: number;
+  statusName: string;
+  productPageImageUrl: string;
+  createdAt: string;
+};
+
+type ProfileResponse = {
+  user: UserProfile;
+  cartItems: CartItem[];
+  purchaseItems: PurchaseItem[];
+};
+
+
+  const { accessToken, isRestoring, setAccessToken } = useAuth(); // Get isRestoring here
+  const router = useRouter();
+  const [profile, setProfile] = useState<ProfileResponse | null>(null);
+const [loadingProfile, setLoadingProfile] = useState(true);
+
+  useEffect(() => {
+  if (!isRestoring && accessToken) {
+    const fetchProfile = async () => {
+      try {
+        const response = await privateApi.get('/User/userDetail');
+        setProfile(response.data);
+        console.log(response);
+      } catch (error) {
+        console.error('Profile fetch failed', error);
+      } finally {
+        setLoadingProfile(false);
+      }
+    };
+
+    fetchProfile();
+  }
+}, [isRestoring, accessToken]);
+
+  useEffect(() => {
+    // Only make a decision once the restoration process is FINISHED
+    if (!isRestoring) {
+        if (!accessToken) {
+            router.push('/auth/login');
+        }
+    }
+  }, [accessToken, isRestoring, router]);
+
+  // Show the loading screen as long as the app is "Restoring" the session
+  if (isRestoring || loadingProfile || !profile) {
+  return (
+    <div className="h-screen w-full flex items-center justify-center bg-white">
+      <p className="text-[10px] uppercase tracking-[0.5em] animate-pulse">
+        Authenticating Studio Access...
+      </p>
+    </div>
+  );
+}
+
   const navItems = [
     { id: 'details', label: 'Details' },
     { id: 'bag', label: 'Bag' },
@@ -12,7 +94,26 @@ function ProfilePage() {
     { id: 'rewards', label: 'Rewards' },
     { id: 'connect', label: 'Connect' }
   ];
+  const logout = async () => {
+  try {
+    // Optional: Tell backend to invalidate the session/cookie
+    await privateApi.post('/Auth/logout'); 
+  } catch (error) {
+    console.error("Backend logout failed", error);
+  } finally {
+    // 3. CORRECTED: Use the setter function from context
+    if (setAccessToken) {
+      setAccessToken(null); 
+    }
 
+    // 4. IMPORTANT: Clear the token from your Axios memory helper
+    updateMemoryToken(null);
+
+    // 5. Clear local component state and redirect
+    setProfile(null);
+    router.push('/auth/login');
+  }
+};
   return (
     <>
       {/* 1. AESTHETIC BACKGROUND - Optimized blur for mobile */}
@@ -27,7 +128,7 @@ function ProfilePage() {
           Wrii Studio<span className="text-blue-500">.</span>
         </a>
         <div className="flex gap-6">
-          <button className="text-[9px] uppercase tracking-widest text-slate-400 hover:text-black transition-colors">Sign Out</button>
+          <button className="text-[9px] uppercase tracking-widest text-slate-400 hover:text-black transition-colors" onClick={logout}>Sign Out</button>
         </div>
       </nav>
 
@@ -39,7 +140,7 @@ function ProfilePage() {
           <div className="space-y-12">
             <header>
               <p className="text-[10px] uppercase tracking-[0.5em] text-slate-400 font-bold mb-2">Member</p>
-              <h2 className="text-2xl font-serif italic text-slate-900">Aman Sharma</h2>
+              <h2 className="text-2xl font-serif italic text-slate-900">{profile.user.firstName}</h2>
             </header>
 
             <nav className="flex flex-col gap-6">
@@ -61,7 +162,7 @@ function ProfilePage() {
         <div className="md:hidden pt-24 bg-white/40 backdrop-blur-md border-b border-slate-100 sticky top-0 z-40">
             <div className="px-6 pb-4">
                 <p className="text-[8px] uppercase tracking-[0.5em] text-slate-400 font-bold mb-1">Member Dashboard</p>
-                <h2 className="text-xl font-serif italic text-slate-900">Aman Sharma</h2>
+                <h2 className="text-xl font-serif italic text-slate-900">{profile.user.firstName}</h2>
             </div>
             
             <div className="flex overflow-x-auto no-scrollbar border-t border-slate-50 px-4 py-3 gap-6 snap-x">
@@ -82,60 +183,162 @@ function ProfilePage() {
           
           {/* 01 / DETAILS */}
           <div id="details" className="h-full w-full snap-start md:snap-center flex items-center justify-center p-8 md:p-24">
-            <div className="max-w-2xl w-full">
-              <h3 className="text-[10px] md:text-xs uppercase tracking-[0.4em] font-bold text-slate-300 mb-10 md:mb-12">01 / Personal Details</h3>
-              <div className="grid grid-cols-1 md:grid-cols-2 gap-y-12 md:gap-y-16">
-                <div className="relative group">
-                  <label className="text-[8px] md:text-[9px] uppercase tracking-widest text-slate-400 absolute -top-5 left-0">Full Name</label>
-                  <input type="text" defaultValue="Aman Sharma" className="w-full bg-transparent border-b border-slate-200 py-2 focus:border-black outline-none transition-all text-sm"/>
-                </div>
-                <div className="relative group">
-                  <label className="text-[8px] md:text-[9px] uppercase tracking-widest text-slate-400 absolute -top-5 left-0">Email Address</label>
-                  <input type="email" defaultValue="aman@wriistudio.com" className="w-full bg-transparent border-b border-slate-200 py-2 focus:border-black outline-none transition-all text-sm" />
-                </div>
-              </div>
-              <button className="mt-12 md:mt-20 w-full md:w-auto px-12 py-5 bg-black text-white text-[9px] md:text-[10px] uppercase tracking-[0.4em] font-bold">Update Profile</button>
-            </div>
-          </div>
+  <div className="max-w-2xl w-full">
+    <h3 className="text-[10px] md:text-xs uppercase tracking-[0.4em] font-bold text-slate-300 mb-10 md:mb-12">01 / Personal Details</h3>
+    
+    <div className="grid grid-cols-1 md:grid-cols-2 gap-x-12 gap-y-12 md:gap-y-16">
+      {/* Full Name */}
+      <div className="relative group">
+        <label className="text-[8px] md:text-[9px] uppercase tracking-widest text-slate-400 absolute -top-5 left-0">Full Name</label>
+        <input type="text" defaultValue={`${profile.user.firstName} ${profile.user.lastName}`} className="w-full bg-transparent border-b border-slate-200 py-2 focus:border-black outline-none transition-all text-sm font-medium"/>
+      </div>
+
+      {/* Email Address */}
+      <div className="relative group">
+        <label className="text-[8px] md:text-[9px] uppercase tracking-widest text-slate-400 absolute -top-5 left-0">Email Address</label>
+        <input type="email" defaultValue={profile.user.email} className="w-full bg-transparent border-b border-slate-200 py-2 focus:border-black outline-none transition-all text-sm font-medium" />
+      </div>
+
+      {/* Phone Number */}
+      <div className="relative group">
+        <label className="text-[8px] md:text-[9px] uppercase tracking-widest text-slate-400 absolute -top-5 left-0">Phone Number</label>
+        <input type="text" defaultValue={profile.user.phoneNumber} className="w-full bg-transparent border-b border-slate-200 py-2 focus:border-black outline-none transition-all text-sm font-medium" />
+      </div>
+
+      {/* Date of Birth */}
+      <div className="relative group">
+        <label className="text-[8px] md:text-[9px] uppercase tracking-widest text-slate-400 absolute -top-5 left-0">Date of Birth</label>
+        <input type="date" defaultValue={profile.user.dateOfBirth} className="w-full bg-transparent border-b border-slate-200 py-2 focus:border-black outline-none transition-all text-sm font-medium" />
+      </div>
+
+      {/* Address Line 1 */}
+      <div className="relative group md:col-span-2">
+        <label className="text-[8px] md:text-[9px] uppercase tracking-widest text-slate-400 absolute -top-5 left-0">Address Line 1</label>
+        <input type="text" defaultValue={profile.user.address1} className="w-full bg-transparent border-b border-slate-200 py-2 focus:border-black outline-none transition-all text-sm font-medium" />
+      </div>
+
+      {/* Address Line 2 */}
+      <div className="relative group">
+        <label className="text-[8px] md:text-[9px] uppercase tracking-widest text-slate-400 absolute -top-5 left-0">Address Line 2</label>
+        <input type="text" defaultValue={profile.user.address2} className="w-full bg-transparent border-b border-slate-200 py-2 focus:border-black outline-none transition-all text-sm font-medium" />
+      </div>
+
+      {/* Pincode & State */}
+      <div className="flex gap-4">
+  <input
+    type="text"
+    defaultValue={String(profile.user.pinCode ?? "")}
+    className="w-1/2 bg-transparent border-b border-slate-200 py-2 focus:border-black outline-none transition-all text-sm font-medium"
+  />
+
+  <input
+    type="text"
+    defaultValue={profile.user.stateName ?? ""}
+    className="w-1/2 bg-transparent border-b border-slate-200 py-2 focus:border-black outline-none transition-all text-sm font-medium"
+  />
+</div>
+
+    </div>
+
+    <button className="mt-12 md:mt-20 w-full md:w-auto px-12 py-5 bg-black text-white text-[9px] md:text-[10px] uppercase tracking-[0.4em] font-bold hover:bg-slate-800 transition-colors">
+        Update Profile
+    </button>
+  </div>
+</div>
 
           {/* 02 / STUDIO BAG */}
           <div id="bag" className="h-full w-full snap-start md:snap-center flex items-center justify-center p-8 md:p-24">
-            <div className="max-w-2xl w-full">
-              <h3 className="text-[10px] md:text-xs uppercase tracking-[0.4em] font-bold text-slate-300 mb-10 md:mb-12">02 / Studio Bag</h3>
-              <div className="space-y-6 md:space-y-8 border-t border-slate-100 pt-8">
-                <div className="flex items-center gap-6 md:gap-8 group">
-                  <div className="w-20 h-28 bg-slate-100 flex-shrink-0 overflow-hidden">
-                    <img src="https://thehouseofrare.com/cdn/shop/products/HERO_76c59c07-ac65-40f5-96e4-1de84fcdee92.jpg?v=1743587556" alt="Item" className="w-full h-full object-cover grayscale" />
-                  </div>
-                  <div className="flex-1">
-                    <h4 className="text-sm font-medium">Midnight Coat</h4>
-                    <p className="text-[10px] text-slate-400 mt-1 uppercase tracking-widest font-bold">₹24,310</p>
-                  </div>
-                </div>
-                <div className="pt-8 md:pt-12 border-t border-slate-100 flex flex-col md:flex-row justify-between items-start md:items-end gap-6 md:gap-0">
-                  <div>
-                    <p className="text-[9px] md:text-[10px] uppercase tracking-[0.3em] text-slate-400">Subtotal</p>
-                    <p className="text-xl md:text-2xl font-bold">₹24,310</p>
-                  </div>
-                  <button className="w-full md:w-auto px-10 py-5 bg-black text-white text-[9px] md:text-[10px] uppercase tracking-[0.4em] font-bold">Checkout</button>
-                </div>
-              </div>
-            </div>
+             {profile.cartItems.length === 0 ? (
+    <p className="text-xs uppercase tracking-widest text-slate-400">
+      Your studio bag is empty
+    </p>
+  ) : (
+    <>
+      {/* CART ITEMS */}
+      {profile.cartItems.map((item) => (
+        <div
+          key={item.id}
+          className="flex items-center gap-6 md:gap-8 group"
+        >
+          <div className="w-20 h-28 bg-slate-100 flex-shrink-0 overflow-hidden">
+            <img
+              src={item.productPageImageUrl}
+              alt={item.productName}
+              className="w-full h-full object-cover grayscale"
+            />
+          </div>
+
+          <div className="flex-1">
+            <h4 className="text-sm font-medium">
+              {item.productName}
+            </h4>
+            <p className="text-[10px] text-slate-400 mt-1 uppercase tracking-widest font-bold">
+              ₹{item.price.toLocaleString()}
+            </p>
+          </div>
+        </div>
+      ))}
+
+      {/* SUBTOTAL */}
+      <div className="pt-8 md:pt-12 border-t border-slate-100 flex flex-col md:flex-row justify-between items-start md:items-end gap-6 md:gap-0">
+        <div>
+          <p className="text-[9px] md:text-[10px] uppercase tracking-[0.3em] text-slate-400">
+            Subtotal
+          </p>
+          <p className="text-xl md:text-2xl font-bold">
+            ₹{profile.cartItems
+              .reduce((sum, item) => sum + item.price, 0)
+              .toLocaleString()}
+          </p>
+        </div>
+
+        <button className="w-full md:w-auto px-10 py-5 bg-black text-white text-[9px] md:text-[10px] uppercase tracking-[0.4em] font-bold">
+          Checkout
+        </button>
+      </div>
+    </>
+  )}
           </div>
 
           {/* 03 / ORDERS */}
           <div id="orders" className="h-full w-full snap-start md:snap-center flex items-center justify-center p-8 md:p-24">
             <div className="max-w-2xl w-full">
-              <h3 className="text-[10px] md:text-xs uppercase tracking-[0.4em] font-bold text-slate-300 mb-10 md:mb-12">03 / Order History</h3>
-              <div className="p-8 md:p-10 border border-slate-100 bg-white/40 backdrop-blur-md flex justify-between items-center">
-                <div className="space-y-1">
-                  <p className="text-[9px] uppercase tracking-widest text-slate-400">Order #WS-2025-042</p>
-                  <p className="text-xs md:text-sm font-medium">Carolinae Top</p>
-                  <p className="text-[10px] text-green-600 font-semibold tracking-widest uppercase">Delivered</p>
-                </div>
-                <p className="text-sm font-bold">₹15,800</p>
-              </div>
+    <h3 className="text-[10px] md:text-xs uppercase tracking-[0.4em] font-bold text-slate-300 mb-10 md:mb-12">
+      03 / Order History
+    </h3>
+
+    {/* Orders List */}
+    <div className="space-y-6">
+      {profile.purchaseItems.length === 0 ? (
+        <p className="text-[10px] uppercase tracking-widest text-slate-400">
+          No orders found
+        </p>
+      ) : (
+        profile.purchaseItems.map((item) => (
+          <div
+            key={item.id}
+            className="p-8 md:p-10 border border-slate-100 bg-white/40 backdrop-blur-md flex justify-between items-center"
+          >
+            <div className="space-y-1">
+              <p className="text-[9px] uppercase tracking-widest text-slate-400">
+                Order #{item.id}
+              </p>
+
+              <p className="text-xs md:text-sm font-medium">
+                {item.productName}
+              </p>
+
+              <p className="text-[10px] text-green-600 font-semibold tracking-widest uppercase">
+                {item.statusName}
+              </p>
             </div>
+
+            <p className="text-sm font-bold">₹{item.price}</p>
+          </div>
+        ))
+      )}
+    </div>
+  </div>
           </div>
 
           {/* 05 / REWARDS */}
@@ -178,7 +381,7 @@ function ProfilePage() {
             <div className="max-w-2xl w-full text-center">
               <h3 className="text-[10px] md:text-xs uppercase tracking-[0.4em] font-bold text-slate-300 mb-10 md:mb-12">06 / Connect</h3>
               <p className="text-xl md:text-2xl font-serif italic text-slate-700 mb-12 md:mb-16 leading-relaxed">
-                "Design is a dialogue between <br/> the studio and the soul."
+                Design is a dialogue between <br/> the studio and the soul.
               </p>
               <div className="grid grid-cols-1 md:grid-cols-3 gap-8 md:gap-12">
                 {['Instagram', 'WhatsApp', 'Email Concierge'].map((link) => (

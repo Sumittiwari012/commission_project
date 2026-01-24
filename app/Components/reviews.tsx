@@ -16,19 +16,18 @@ function Reviews() {
 
   const handleScroll = (direction: string) => {
     if (sliderRef.current) {
-      // Adjusted scroll amount: Full width on mobile, 400px on desktop
       const scrollAmount = direction === "left" ? -sliderRef.current.offsetWidth : sliderRef.current.offsetWidth;
       sliderRef.current.scrollBy({ left: scrollAmount, behavior: "smooth" });
     }
   };
 
   return (
+    /* Changed py-20 to pt-20 and removed justify-center */
     <div
       id="reviews"
-      className="sticky top-0 flex min-h-screen w-full flex-col items-center justify-center
-                 bg-[#708090] shadow-[0_-20px_50px_rgba(0,0,0,0.5)] py-20"
+      className="flex min-h-screen w-full flex-col items-center bg-[#708090] shadow-[0_-20px_50px_rgba(0,0,0,0.5)] pt-20"
     >
-      <div className="max-w-7xl mx-auto w-full px-6 md:px-8">
+      <div className="max-w-7xl mx-auto w-full px-6 md:px-8 flex-grow">
         
         {/* Header Section */}
         <div className="mb-12 flex flex-col md:flex-row justify-between items-start md:items-end gap-6">
@@ -41,7 +40,6 @@ function Reviews() {
             </h1>
           </div>
 
-          {/* Desktop Controls (Hidden on Mobile for cleaner UI) */}
           <div className="hidden md:flex gap-3">
             <button onClick={() => handleScroll("left")} className="p-4 border border-white/10 rounded-full text-white hover:bg-white/10 transition-all">
               <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="m15 18-6-6 6-6" /></svg>
@@ -61,9 +59,6 @@ function Reviews() {
           {reviews.map((item) => (
             <div
               key={item.id}
-              /* MOBILE: min-w-full (one card at a time)
-                 DESKTOP: calc(25%-1.25rem) (four cards at a time)
-              */
               className="min-w-full md:min-w-[calc(25%-1.25rem)] snap-center md:snap-start
                          bg-slate-900/80 backdrop-blur-lg p-10 md:p-8 rounded-[2rem]
                          border border-white/5 hover:border-blue-500/30
@@ -71,7 +66,6 @@ function Reviews() {
             >
               <div className="flex justify-between items-start mb-8">
                  <div className="text-blue-500 text-lg tracking-widest">★★★★★</div>
-                 {/* Decorative Quote Icon */}
                  <span className="text-4xl text-white/5 font-serif">“</span>
               </div>
 
@@ -94,13 +88,15 @@ function Reviews() {
           ))}
         </div>
 
-        {/* Mobile Swipe Indicator (Modern Aesthetic) */}
-        <div className="flex md:hidden justify-center items-center gap-2 mt-4">
+        {/* Mobile Swipe Indicator */}
+        <div className="flex md:hidden justify-center items-center gap-2 mt-4 mb-20">
            <div className="w-8 h-1 bg-blue-500 rounded-full"></div>
            <div className="w-1 h-1 bg-white/20 rounded-full"></div>
            <div className="w-1 h-1 bg-white/20 rounded-full"></div>
         </div>
       </div>
+
+      
     </div>
   );
 }

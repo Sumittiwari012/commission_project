@@ -1,99 +1,166 @@
 "use client"
 import Link from "next/link";
-import { useState } from "react";
+import { useState, useEffect, useMemo } from "react";
+import Pagination from '@mui/material/Pagination';
+import app from "@/lib/app"
+
 interface CollectionPdtProps {
-    category: string;
+  category: string;
 }
+
 function CollectionPdt({ category }: CollectionPdtProps) {
-    type Product = {
-  id: number;
-  src: string;
-  label: string;
-  price: string;
-  luminosity: number;
-};  
-  const [products, setProducts] = useState<Product[]>([
-    { id: 1, src: "https://www.hancockfashion.com/cdn/shop/files/5579BGREEN_1_M.jpg?v=1734411915", label: "Emerald Silk", price: "$240", luminosity: 0 },
-    { id: 2, src: "https://thehouseofrare.com/cdn/shop/products/HERO_76c59c07-ac65-40f5-96e4-1de84fcdee92.jpg?v=1743587556", label: "Midnight Coat", price: "$310", luminosity: 0 },
-    { id: 3, src: "https://thefoomer.in/cdn/shop/files/jpeg-optimizer_PATP7047.jpg?v=1683819034", label: "Dove Polo", price: "$180", luminosity: 0 },
-    { id: 4, src: "https://images.unsplash.com/photo-1521572163474-6864f9cf17ab?q=80&w=500", label: "Alabaster Tee", price: "$120", luminosity: 0 },
-    { id: 5, src: "https://rukminim2.flixcart.com/image/480/640/xif0q/shirt/d/z/7/m-plan-shirts-hems-trends-original-imagyvjx5mpdha9x.jpeg?q=90", label: "Onyx Shirt", price: "$195", luminosity: 0 },
-    { id: 6, src: "https://www.blackdenim.in/cdn/shop/files/0A0A6024_1.jpg?v=1726837920", label: "Ivory Knit", price: "$150", luminosity: 0 },
-    { id: 7, src: "https://assets0.mirraw.com/images/11273381/ACW2457_zoom.jpg?1677742262", label: "Slate Overcoat", price: "$290", luminosity: 0 }
-  ]);
+  type Product = {
+    productId: number;
+    productName: string;
+    price: number;
+    productPageImageUrl: string;
+    color: string;
+    composition: string;
+  };
+
+  const [totalPages, setTotalPages] = useState(1);
+  const [page, setPage] = useState(1);
+  const pageSize = 8; 
+  const [products, setProducts] = useState<Product[]>([]);
+  const [loading, setLoading] = useState(false);
+  
+  // State for sorting preference
+  const [sortOrder, setSortOrder] = useState<string>("default");
+
+  const fetchProducts = async (pageNumber: number) => {
+    try {
+      setLoading(true);
+      const response = await app.get("/Product/pdtByCategory", {
+        params: {
+          category,
+          pageNumber,
+          pageSize,
+        },
+      });
+      setProducts(response.data.products);
+      setTotalPages(response.data.totalPages);
+    } catch (error) {
+      console.error("Failed to fetch products", error);
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  useEffect(() => {
+    fetchProducts(page);
+  }, [page, category]); // Added category to dependency to reset on nav changes
+
+  /**
+   * ARRANGEMENT LOGIC
+   * This hook runs before the return statement, ensuring the 'sortedProducts'
+   * are always in the correct order before the UI renders.
+   */
+  const arrangedProducts = useMemo(() => {
+    // 1. Create a shallow copy to avoid mutating the original state
+    const currentList = [...products];
+
+    // 2. Arrange based on the current filter/sort selection
+    switch (sortOrder) {
+      case "lowToHigh":
+        return currentList.sort((a, b) => a.price - b.price);
+      case "highToLow":
+        return currentList.sort((a, b) => b.price - a.price);
+      default:
+        // Returns the original order from the API
+        return currentList;
+    }
+  }, [products, sortOrder]);
+
   return (
     <>
-    <div className="bg-[#E5E4E2]">
-      {/* Hero Section */}
-      <div className="relative w-full h-[50vh] md:h-[70vh] bg-[#e4c798] overflow-hidden">
-        <img
-          src="https://www.pacificplace.com.hk/-/media/images/pacificplace2/thestylesheet_article/italy-shoot-q3-25/pacific-place-lake-shoot-2.ashx?rev=0e1cc1df717346f49cc9ccd819e44407&hash=908BDE90616D841C90C21877B2A48868"
-          alt="Hero Image"
-          className="w-full h-full object-cover"
-        />
-        <div className="absolute inset-0 flex flex-col items-center justify-center text-white text-center px-4">
-        <h2 className="text-4xl md:text-6xl font-serif italic tracking-tight mb-8">
-            {category}
-        </h2>
-        <div className="h-[1px] w-12 bg-white/50 group-hover:w-24 transition-all duration-700" />
-    </div>
-      </div>
-
-      {/* Sticky Filter */}
-      <div className="sticky top-16 md:top-[88px] z-[50] h-[8vh] flex items-center justify-center px-4">
-        <div className="flex gap-4 bg-white/80 md:bg-white/10 px-6 py-2 md:py-3 rounded-full border backdrop-blur-xl border-white/20 shadow-sm">
-          <select className="bg-transparent text-[10px] md:text-xs text-black font-bold uppercase tracking-widest focus:outline-none cursor-pointer">
-            <option>Newest</option>
-            <option>Price: Low to High</option>
-          </select>
-          <div className="w-[1px] h-4 bg-black/10 md:bg-white/20" />
-          <select className="bg-transparent text-[10px] md:text-xs text-black font-bold uppercase tracking-widest focus:outline-none cursor-pointer">
-            <option>Filter</option>
-            <option>Outerwear</option>
-            <option>Essentials</option>
-          </select>
-        </div>
-      </div>
-
-      {/* Product Grid: 2 columns on mobile, 4 on desktop */}
-      
-<div className="w-full md:max-w-7xl md:mx-auto md:px-8 py-8 md:py-16">
-  <div className="grid grid-cols-2 lg:grid-cols-4 gap-0 md:gap-8">
-    {products.map((item) => (
-      <div
-        key={item.id}
-        className="group cursor-pointer border-b border-r border-gray-100 md:border-none last:border-r-0"
-      >
-        {/*
-           NEW WRAPPER DIV:
-           - p-1: Adds very slight (4px) padding around the image on mobile.
-           - md:p-0: Removes the padding on desktop to maintain your original design.
-        */}
-        <div className="p-1 md:p-0">
-          <div className="aspect-[2/3] md:aspect-[3/4] overflow-hidden bg-gray-100 md:rounded-sm">
-            <Link href={`/products/${item.label.toLowerCase().replace(/\s+/g, '-')}-${item.id}`}>
-              <img
-                src={item.src}
-                alt={item.label}
-                className="w-full h-full object-cover transition-transform duration-700 md:group-hover:scale-105"
-              />
-            </Link>
+      <div className="bg-white">
+        {/* Hero Section */}
+        <div className="relative w-full h-[30vh] md:h-[25vh] bg-[#e4c798] overflow-hidden">
+          <img
+            src="https://www.pacificplace.com.hk/-/media/images/pacificplace2/thestylesheet_article/italy-shoot-q3-25/pacific-place-lake-shoot-2.ashx?rev=0e1cc1df717346f49cc9ccd819e44407&hash=908BDE90616D841C90C21877B2A48868"
+            alt="Hero Image"
+            className="w-full h-full object-cover"
+          />
+          <div className="absolute inset-0 flex flex-col items-center justify-center text-white text-center px-4 bg-black/5">
+            <h2 className="text-3xl md:text-5xl font-serif italic tracking-widest uppercase mb-4">
+              {category.replace(/-/g, ' ')}
+            </h2>
+            <div className="h-[1px] w-16 bg-white/70" />
           </div>
         </div>
 
-        <div className="mt-3 md:mt-6 text-center py-4 md:py-0">
-          <h3 className="text-xs md:text-[15px] tracking-tight text-gray-600 font-light mb-1 px-2 line-clamp-2 min-h-[32px] flex items-center justify-center">
-            {item.label}
-          </h3>
-          <p className="text-[11px] md:text-[13px] font-bold tracking-[0.15em] md:tracking-[0.2em] uppercase text-gray-900">
-            {item.price}
-          </p>
+        {/* Sticky Filter Bar */}
+        <div className="sticky top-16 md:top-[80px] z-[40] h-[10vh] flex items-center justify-center px-4">
+          <div className="flex items-center gap-4 bg-white px-6 py-2 rounded-full border  shadow-sm">
+            <label className="text-[9px] uppercase tracking-widest text-gray-400 font-bold">Sort By:</label>
+            <select 
+              value={sortOrder}
+              onChange={(e) => setSortOrder(e.target.value)}
+              className="bg-transparent text-[10px] md:text-xs text-black font-bold uppercase tracking-widest focus:outline-none cursor-pointer"
+            >
+              <option value="default">New Arrivals</option>
+              <option value="lowToHigh">Price: Low to High</option>
+              <option value="highToLow">Price: High to Low</option>
+            </select>
+          </div>
+        </div>
+
+        {/* Product Grid Section */}
+        <div className="max-w-[1440px] mx-auto px-4 md:px-12 py-10">
+          {loading && products.length === 0 ? (
+            <div className="flex justify-center items-center h-[40vh]">
+               <div className="animate-pulse text-gray-300 uppercase tracking-[0.3em] text-xs">Loading Collection...</div>
+            </div>
+          ) : (
+            <div className="grid grid-cols-2 lg:grid-cols-4 gap-x-4 gap-y-12 md:gap-x-10 md:gap-y-16">
+              {arrangedProducts.map((item) => (
+                <div key={item.productId} className="group cursor-pointer flex flex-col">
+                  {/* Image Container */}
+                  <div className="relative aspect-[3/4] overflow-hidden bg-gray-50">
+                    <Link href={`/products/${item.productName.toLowerCase().replace(/\s+/g, '-')}-${item.productId}`}>
+                      <img
+                        src={item.productPageImageUrl}
+                        alt={item.productName}
+                        className="w-full h-full object-cover transition-transform duration-1000 group-hover:scale-105"
+                      />
+                    </Link>
+                  </div>
+
+                  {/* Text Content */}
+                  <div className="mt-5 text-center px-2">
+                    <h3 className="text-[12px] md:text-[13px] uppercase tracking-widest text-gray-800 font-medium mb-1">
+                      {item.productName.replace(/-/g, ' ')}
+                    </h3>
+                    <p className="text-[13px] md:text-[14px] font-semibold text-gray-900">
+                      ₹ {Number(item.price).toLocaleString('en-IN')}.00
+                    </p>
+                  </div>
+                </div>
+              ))}
+            </div>
+          )}
         </div>
       </div>
-    ))}
-  </div>
-</div>
-    </div>
+
+      {/* Pagination Container */}
+      <div className="flex justify-center mt-8 mb-20">
+        <Pagination 
+          count={totalPages} 
+          page={page}
+          color="standard" 
+          onChange={(_, value) => {
+            setPage(value);
+            window.scrollTo({ top: 0, behavior: "smooth" });
+          }} 
+          sx={{
+            '& .MuiPaginationItem-root': {
+              fontSize: '0.75rem',
+              fontFamily: 'inherit',
+              letterSpacing: '0.1em'
+            }
+          }}
+        />
+      </div>
     </>
   );
 }
