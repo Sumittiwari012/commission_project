@@ -93,7 +93,7 @@ function Navbar() {
                   width={140}
                   height={40}
                   priority
-                  unoptimized 
+                  unoptimized = {true} 
                   className="object-contain"
                 />
               </Link>
