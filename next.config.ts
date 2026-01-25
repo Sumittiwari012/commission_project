@@ -1,9 +1,15 @@
 /** @type {import('next').NextConfig} */
 const nextConfig = {
   images: {
-    domains: ["img.sanishtech.com"],
-    unoptimized: true // for Netlify
-  }
-};
+    remotePatterns: [
+      {
+        protocol: 'https',
+        hostname: 'img.sanishtech.com',
+        port: '',
+        pathname: '/**',
+      },
+    ],
+  },
+}
 
-module.exports = nextConfig;
+module.exports = nextConfig
