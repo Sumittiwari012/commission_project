@@ -4,6 +4,7 @@ import { useAuth } from '@/context/AuthContext'; // Import your context
 import React, { useEffect, useState } from 'react';
 import { useRouter } from 'next/navigation';
 import { privateApi,updateMemoryToken } from '@/lib/app';
+import Navbar from '@/app/Components/navbar';
 
 function ProfilePage() {
 type UserProfile = {
@@ -117,17 +118,18 @@ const [loadingProfile, setLoadingProfile] = useState(true);
   return (
     <>
       {/* 1. AESTHETIC BACKGROUND - Optimized blur for mobile */}
+      <Navbar/>
       <div className="fixed inset-0 -z-10 overflow-hidden">
         <div className="absolute top-[-10%] left-[-10%] w-[100%] md:w-[60%] h-[60%] rounded-full bg-blue-50/60 blur-[80px] md:blur-[120px] animate-pulse"></div>
         <div className="absolute bottom-[-10%] right-[-10%] w-[80%] md:w-[50%] h-[50%] rounded-full bg-orange-50/50 blur-[80px] md:blur-[100px] animate-[pulse_10s_infinite]"></div>
       </div>
 
       {/* 2. TOP NAVIGATION */}
-      <nav className="fixed top-0 left-0 right-0 z-50 px-6 md:px-12 py-6 md:py-8 flex justify-between items-center bg-white/10 md:bg-transparent backdrop-blur-md md:backdrop-blur-none border-b border-slate-100 md:border-none">
+<nav className="fixed top-0 left-0 right-0 z-50 px-6 md:px-12 py-6 md:py-8 mt-20 flex justify-between items-center bg-white/10 md:bg-transparent backdrop-blur-md md:backdrop-blur-none border-b border-slate-100 md:border-none">
         <a href="#" className="text-[10px] md:text-xs uppercase tracking-[0.4em] font-bold">
-          Wrii Studio<span className="text-blue-500">.</span>
+          <span className="text-blue-500">.</span>
         </a>
-        <div className="flex gap-6">
+        <div className="flex gap-20">
           <button className="text-[9px] uppercase tracking-widest text-slate-400 hover:text-black transition-colors" onClick={logout}>Sign Out</button>
         </div>
       </nav>
