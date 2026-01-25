@@ -88,7 +88,7 @@ function Navbar() {
             <div className="flex shrink-0 justify-center">
               <Link href="/" className="flex items-center">
                 <Image
-                  src="https://img.sanishtech.com/u/c35d619f92c92345f342287fc86dbfe5.png" 
+                  src="https://i.postimg.cc/85RHt9TY/WRII-STUDIO-website.png" 
                   alt="WRII Studio"
                   width={140}
                   height={40}
