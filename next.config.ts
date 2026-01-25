@@ -1,7 +1,9 @@
-import type { NextConfig } from "next";
-
-const nextConfig: NextConfig = {
-  /* config options here */
+/** @type {import('next').NextConfig} */
+const nextConfig = {
+  images: {
+    domains: ["img.sanishtech.com"],
+    unoptimized: true // for Netlify
+  }
 };
 
-export default nextConfig;
+module.exports = nextConfig;
