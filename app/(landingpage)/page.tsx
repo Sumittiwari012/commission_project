@@ -12,6 +12,7 @@ import Bestseller from "../Components/bestseller";
 function page() {
   return (
     <>
+    <div className="bgcolor: bg-slate-300">
     <Navbar/>
     <Welcome/>
     <Women_And_Kids imgurl="https://images.squarespace-cdn.com/content/v1/63810cc8347e214d6a1808a3/8dcdf168-1f1e-42ab-95f3-4e34eac60264/family-mum-child-garden-photography-plymouth-devon-1" mobileImgUrl="https://images.pexels.com/photos/8562095/pexels-photo-8562095.jpeg"/>
@@ -46,6 +47,7 @@ function page() {
     <Bestseller/>
     <Reviews/>
     <Footer/>
+    </div>
     </>
   )
 }

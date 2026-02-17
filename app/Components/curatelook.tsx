@@ -4,20 +4,16 @@ import React, { useState, useEffect } from 'react';
 function Curatelook() {
   const [activeItemId, setActiveItemId] = useState('item-1');
 
-  // FORCE BACKGROUND ON MOUNT
   useEffect(() => {
-    // Save original styles to restore them if the user leaves this page
     const originalStyle = window.getComputedStyle(document.body).backgroundColor;
     const originalImage = window.getComputedStyle(document.body).backgroundImage;
 
-    // Apply the yellow background directly to the browser's root
-    document.documentElement.style.backgroundColor = "#facc15";
-    document.body.style.backgroundColor = "#facc15";
-    document.body.style.backgroundImage = "none"; // This kills the grass background
+    document.documentElement.style.backgroundColor = "#a8a7a0";
+    document.body.style.backgroundColor = "#a8a7a0";
+    document.body.style.backgroundImage = "none";
     document.body.style.margin = "0";
 
     return () => {
-      // Restore original styles when component unmounts
       document.documentElement.style.backgroundColor = originalStyle;
       document.body.style.backgroundColor = originalStyle;
       document.body.style.backgroundImage = originalImage;
@@ -60,8 +56,7 @@ function Curatelook() {
   ];
 
   return (
-    /* The outer container now uses !important to fight off other CSS files */
-    <div className="w-full min-h-screen bg-grey-400 !bg-[#656460] relative z-10">
+    <div className="w-full min-h-screen relative z-10">
       
       <style>{`
         @import url('https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;500;600&family=Montserrat:wght@300;400&display=swap');
@@ -81,16 +76,16 @@ function Curatelook() {
           margin-left: -12px;
         }
 
-        /* Force transparency off the main container */
-        #root, .__next { background-color: #facc15 !important; }
+        #root, .__next { background-color: #a8a7a0 !important; }
       `}</style>
 
-      <div className="text-[#2d2d2d] py-10 md:py-20 px-4 md:px-10 lg:px-20">
+      {/* REDUCED MOBILE PADDING: py-6 changed to pt-2 pb-0 */}
+      <div className="text-[#2d2d2d] pt-2 pb-0 md:py-20 px-4 md:px-10 lg:px-20">
         <section className="max-w-[1440px] mx-auto font-montserrat">
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-0 items-stretch bg-grey-400 shadow-2xl overflow-hidden">
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-0 items-stretch overflow-hidden">
             
-            {/* LEFT SIDE: INTERACTIVE IMAGE */}
-            <div className="relative aspect-[3/5] overflow-hidden bg-grey-400">
+            {/* LEFT SIDE: MAIN IMAGE */}
+            <div className="relative aspect-[2/3] md:aspect-[2/3.5] overflow-hidden">
               <img
                 src="https://images.unsplash.com/photo-1594552072238-b8a33785b261?auto=format&fit=crop&q=80&w=1000"
                 alt="Ivory Bridal"
@@ -102,6 +97,7 @@ function Curatelook() {
                   className="absolute" 
                   style={{ top: item.top, left: item.left }}
                   onMouseEnter={() => setActiveItemId(item.id)}
+                  onClick={() => setActiveItemId(item.id)}
                 >
                   <svg 
                     className="animate-pulse-heart text-pink-500 pointer-events-none" 
@@ -118,37 +114,44 @@ function Curatelook() {
             </div>
 
             {/* RIGHT SIDE: DYNAMIC PRODUCT CARDS */}
-            <div className="flex items-center justify-center text-center relative min-h-[500px] bg-grey-400">
+            {/* REDUCED min-h for mobile to pull content up */}
+            <div className="flex items-start md:items-center justify-center text-center relative min-h-[250px] md:min-h-[500px]">
               {products.map((item) => (
                 <div 
                   key={item.id}
-                  className={`transition-all duration-500 ease-in-out w-full flex flex-col items-center hover:scale-105 
-                    ${activeItemId === item.id 
-                      ? 'opacity-100 transform translateY(0) block' 
-                      : 'opacity-0 transform translateY(5px) hidden'
-                    }`}
+                  className={`transition-all duration-500 ease-in-out w-full flex 
+                    flex-row items-center px-4 py-3
+                    md:flex-col md:justify-center md:px-0 md:py-0
+                    ${activeItemId === item.id ? 'opacity-100 flex' : 'opacity-0 hidden'}`}
                 >
-                  <div className="relative group h-[40%] w-1/2 overflow-hidden mb-6 shadow-md cursor-pointer">
+                  {/* Product Thumbnail */}
+                  <div className="relative group w-1/2 md:w-1/2 overflow-hidden shadow-lg cursor-pointer flex-shrink-0">
                     <img 
                       src={item.mainImg} 
                       alt={item.title}
-                      className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110"
+                      className="w-full aspect-[4/5] md:aspect-auto h-full object-cover transition-transform duration-500 group-hover:scale-110"
                     />
-                    <button className="absolute bottom-0 left-0 w-full bg-[#2d2d2d] text-white text-[11px] tracking-[0.2em] uppercase font-medium py-3 hover:bg-pink-600 transition-colors duration-300">
+                    <button className="hidden md:block absolute bottom-0 left-0 w-full bg-[#2d2d2d] text-white text-[11px] tracking-[0.2em] uppercase font-medium py-3 hover:bg-pink-600 transition-colors duration-300">
                       Add to Cart
                     </button>
                   </div>
 
-                  <div className="max-w-xs px-4">
-                    <h3 className="font-serif text-xl uppercase tracking-widest mb-2">
+                  {/* Product Details */}
+                  <div className="w-1/2 md:w-full text-left md:text-center pl-6 md:pl-0 md:mt-6">
+                    <h3 className="font-serif text-lg md:text-xl uppercase tracking-widest mb-1 md:mb-2 text-[#2d2d2d]">
                       {item.title}
                     </h3>
-                    <p className="text-[13px] leading-relaxed text-gray-600">
+                    <p className="text-[11px] md:text-[13px] leading-relaxed text-gray-700 line-clamp-4 md:line-clamp-none">
                       {item.description}
                     </p>
-                    <button className="mt-4 border-b border-black text-[9px] tracking-[0.3em] uppercase hover:text-pink-600 hover:border-pink-600 transition-colors">
+                    <button className="mt-3 md:mt-4 border-b border-black text-[9px] tracking-[0.3em] uppercase hover:text-pink-600 hover:border-pink-600 transition-colors">
                       Shop Look {item.id.split('-')[1]}
                     </button>
+                    <div className="md:hidden mt-3">
+                         <button className="bg-[#2d2d2d] text-white px-4 py-2 text-[10px] font-bold uppercase tracking-wider shadow-sm">
+                           Add to Bag +
+                         </button>
+                    </div>
                   </div>
                 </div>
               ))}
@@ -161,4 +164,3 @@ function Curatelook() {
 }
 
 export default Curatelook;
-

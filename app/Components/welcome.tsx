@@ -3,7 +3,7 @@ import Image from "next/image";
 
 function Welcome() {
   // Mobile Video Source
-  const mobileVideoSrc = "https://www.pexels.com/download/video/3894725/"; 
+  const mobileImageSrc = "https://images.pexels.com/photos/18436978/pexels-photo-18436978.jpeg"; 
   
   // Desktop Image Source (Using your WRII Studio branding style)
   const desktopImageSrc = "https://images.pexels.com/photos/34314126/pexels-photo-34314126.jpeg";
@@ -13,15 +13,12 @@ function Welcome() {
       
       {/* 1. MOBILE ONLY VIDEO: Visible only on small screens (md:hidden) */}
       <div className="block md:hidden absolute inset-0 w-full h-full z-0">
-        <video 
-          className="w-full h-full object-cover" 
-          autoPlay 
-          muted 
-          loop 
-          playsInline
-        >
-          <source src={mobileVideoSrc} type="video/mp4" />
-        </video>
+       <img 
+        className="w-full h-full object-cover" 
+        src={mobileImageSrc} 
+        alt="Description of image"
+        loading="lazy"
+      />
         {/* Dark overlay for text readability on mobile */}
         <div className="absolute inset-0 bg-black/40"></div>
       </div>
