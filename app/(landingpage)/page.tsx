@@ -16,7 +16,7 @@ function page() {
         <Navbar />
 
        {/* ── Logo Band ── */}
-<div className="fixed top-20 left-0 w-full z-[60] flex items-center justify-center pointer-events-none">
+<div className="fixed top-17 left-0 w-full z-[60] flex items-center justify-center pointer-events-none">
           
           {/* High-Visibility Horizontal Line */}
           <div className="absolute left-0 right-0 h-[2px] bg-black/40 shadow-sm w-full"></div>
