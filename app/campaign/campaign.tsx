@@ -1,103 +1,124 @@
 "use client"
 import Link from "next/link";
-import React from "react";
+import React, { useEffect, useState } from "react";
 import Image from "next/image";
 import Navbar from "@/app/Components/navbar";
-// Campaign Data Interface
+import axios from "axios";
+
 interface CampaignData {
   id: number;
   name: string;
-  img: string;
-  color: string; 
+  description: string;
+  imageUrl: string;
+  color?: string;
 }
 
-const campaigns: CampaignData[] = [
-  {
-    id: 1,
-    name: "THE GOLDEN CROWN",
-    img: "https://images.pexels.com/photos/14448247/pexels-photo-14448247.jpeg",
-    color: "#a88c6e", 
-  },
-  {
-    id: 2,
-    name: "THE APPLE FEAST",
-    img: "https://images.pexels.com/photos/27308646/pexels-photo-27308646.png",
-    color: "#b04b4b", 
-  },
-  {
-    id: 3,
-    name: "STRIPED SILK",
-    img: "https://images.pexels.com/photos/5665382/pexels-photo-5665382.jpeg",
-    color: "#8c2f5f", 
-  },
-  {
-    id: 4,
-    name: "RIVER GUARDIAN",
-    img: "https://images.pexels.com/photos/27308635/pexels-photo-27308635.png",
-    color: "#e5394c", 
-  }
-];
-
 function Campaigns() {
+  const [campaigns, setCampaigns] = useState<CampaignData[]>([]);
+  const [loading, setLoading] = useState(true);
+
+  const colorPalette = ["#a88c6e", "#b04b4b", "#8c2f5f", "#e5394c"];
+
+  const formatTitle = (slug: string) => {
+    if (!slug) return "";
+    return slug
+      .split("-")
+      .map((word) => word.charAt(0).toUpperCase() + word.slice(1))
+      .join(" ");
+  };
+
+  useEffect(() => {
+    const fetchCampaigns = async () => {
+      try {
+        const response = await axios.get(
+          "https://wriistudio.runasp.net/api/Campaign/allCampaign"
+        );
+        const dataWithColors = response.data.map(
+          (item: CampaignData, index: number) => ({
+            ...item,
+            color: colorPalette[index % colorPalette.length],
+          })
+        );
+        setCampaigns(dataWithColors);
+      } catch (error) {
+        console.error("Failed to fetch campaigns:", error);
+      } finally {
+        setLoading(false);
+      }
+    };
+    fetchCampaigns();
+  }, []);
+
+  if (loading)
+    return (
+      <div className="min-h-screen flex items-center justify-center">
+        Loading Collections...
+      </div>
+    );
+
   return (
     <>
-    <Navbar/>
-    <div className="bg-white min-h-screen">
-      {/* Page Header */}
-      <div className="max-w-[1440px] mx-auto px-4 md:px-12 py-12 pt-24">
-  <h1 className="text-[11px] font-semibold tracking-[0.25em] uppercase text-[#004d43]">
-    Campaigns
-  </h1>
-</div>
+      <Navbar />
 
+      <div className="bg-white min-h-screen">
+        <div className="max-w-[1440px] mx-auto px-4 md:px-12 py-12 pt-24">
+          <h1 className="text-[11px] font-semibold tracking-[0.25em] uppercase text-[#004d43]">
+            Campaigns
+          </h1>
+        </div>
 
-      {/* Campaign Grid */}
-      <div className="grid grid-cols-1 md:grid-cols-4 h-[calc(100vh-100px)] w-full">
-        {campaigns.map((campaign) => (
-          /* CHANGED: Wrapped the container in a Link component.
-             The href converts "THE GOLDEN CROWN" to "/campaign/the-golden-crown"
-          */
-          <Link 
-            key={campaign.id} 
-            href={`/campaign/${campaign.name.toLowerCase().replace(/\s+/g, '-')}`}
-            className="group relative w-full h-full overflow-hidden cursor-pointer block"
-          >
-            {/* Campaign Image */}
-            <Image
-              src={campaign.img}
-              alt={campaign.name}
-              fill
-              unoptimized
-              priority
-              className="object-cover transition-opacity duration-500 group-hover:opacity-0"
-            />
-            
-            {/* Solid Color Overlay on Hover */}
-            <div 
-              className="absolute inset-0 opacity-0 transition-opacity duration-500 group-hover:opacity-100 flex items-center justify-center"
-              style={{ backgroundColor: campaign.color }}
+        {/* ⭐ UPDATED GRID ⭐ */}
+        <div className="grid grid-cols-2 md:grid-cols-4 min-h-[calc(100vh-100px)] w-full">
+          {campaigns.map((campaign) => (
+            <Link
+              key={campaign.id}
+              href={`/campaign/${campaign.name}`}
+              className="group relative w-full h-[50vh] md:h-full overflow-hidden cursor-pointer block"
             >
-              <span className="text-white text-[13px] tracking-[0.3em] uppercase font-bold drop-shadow-sm">
-                {campaign.name}
-              </span>
-            </div>
-          </Link>
-        ))}
-      </div>
+              <Image
+                src={campaign.imageUrl}
+                alt={campaign.name}
+                fill
+                unoptimized
+                priority
+                className="object-cover transition-opacity duration-500 group-hover:opacity-0"
+              />
 
-      {/* WhatsApp Icon */}
-      <a
-        href="https://wa.me/"
-        target="_blank"
-        rel="noopener noreferrer"
-        className="fixed bottom-8 right-8 z-50 p-2 bg-[#004d43] rounded-full hover:opacity-90 transition-opacity"
-        aria-label="Chat on WhatsApp"
-      >
-        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="white">
-          <path d="M.057 24l1.687-6.163c-1.041-1.804-1.588-3.849-1.587-5.946.003-6.556 5.338-11.891 11.893-11.891 3.181.001 6.167 1.24 8.413 3.488 2.245 2.248 3.481 5.236 3.48 8.414-.003 6.557-5.338 11.892-11.893 11.892-1.99-.001-3.951-.5-5.688-1.448l-6.305 1.654zm6.597-3.807c1.676.995 3.276 1.591 5.392 1.592 5.448 0 9.886-4.434 9.889-9.885.002-5.462-4.415-9.89-9.881-9.892-5.452 0-9.887 4.434-9.889 9.884-.001 2.225.651 3.891 1.746 5.634l-.999 3.648 3.742-.981zm11.387-5.464c-.074-.124-.272-.198-.57-.347-.297-.149-1.758-.868-2.031-.967-.272-.099-.47-.149-.669.149-.198.297-.768.967-.941 1.165-.173.198-.347.223-.644.074-.297-.149-1.255-.462-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.297-.347.446-.521.151-.172.2-.296.3-.495.099-.198.05-.372-.025-.521-.075-.148-.669-1.611-.916-2.206-.242-.579-.487-.501-.669-.51l-.57-.01c-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.463 1.065 2.875 1.213 3.073.149.198 2.095 3.2 5.076 4.487.709.306 1.263.489 1.694.626.712.226 1.36.194 1.872.118.571-.085 1.758-.719 2.006-1.413.248-.695.248-1.29.173-1.414z"/>
-        </svg>
-      </a>
-    </div>
+              {/* Overlay */}
+              <div
+                className="absolute inset-0 opacity-0 transition-opacity duration-500 group-hover:opacity-100 flex flex-col items-center justify-center px-6 text-center"
+                style={{ backgroundColor: campaign.color }}
+              >
+                <span className="text-white text-[13px] tracking-[0.3em] font-bold drop-shadow-sm mb-2">
+                  {formatTitle(campaign.name)}
+                </span>
+                <p className="text-white text-[10px] tracking-widest opacity-80">
+                  {campaign.description}
+                </p>
+              </div>
+            </Link>
+          ))}
+        </div>
+
+        {/* WhatsApp Floating Button (Original Icon Restored) */}
+        <a
+          href="https://wa.me/"
+          target="_blank"
+          rel="noopener noreferrer"
+          className="fixed bottom-8 right-8 z-50 p-2 bg-[#004d43] rounded-full hover:opacity-90 transition-opacity"
+          aria-label="Chat on WhatsApp"
+        >
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            width="24"
+            height="24"
+            fill="white"
+            viewBox="0 0 24 24"
+          >
+            <path d="M20.52 3.48A11.88 11.88 0 0012 0 11.88 11.88 0 000 12a11.84 11.84 0 001.63 6L0 24l6.17-1.62A11.88 11.88 0 0012 24a11.88 11.88 0 008.48-3.52A11.88 11.88 0 0024 12a11.88 11.88 0 00-3.48-8.52zM12 22a9.8 9.8 0 01-5-1.36l-.36-.21-3.67.97.98-3.58-.24-.37A9.89 9.89 0 012 12 10 10 0 0112 2a10 10 0 0110 10 9.93 9.93 0 01-10 10zm5.27-7.05c-.29-.14-1.71-.84-1.98-.94s-.46-.14-.65.14-.74.94-.9 1.13-.33.21-.62.07a8.12 8.12 0 01-2.4-1.47 9 9 0 01-1.62-2c-.17-.29 0-.45.13-.59s.29-.33.43-.5a.52.52 0 000-.51c-.07-.14-.65-1.56-.89-2.16s-.48-.49-.65-.5h-.56a1.1 1.1 0 00-.79.37 3.77 3.77 0 00-1.16 2.8 6.54 6.54 0 001.39 3.45A14.93 14.93 0 0012 17.5a4.6 4.6 0 003.11-.85 2.4 2.4 0 00.74-1.52c.06-.27 0-.44-.15-.58a1.47 1.47 0 00-.43-.6z" />
+          </svg>
+        </a>
+      </div>
     </>
   );
 }
