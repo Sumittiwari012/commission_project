@@ -14,25 +14,6 @@ function page() {
     <>
       <div className="bg-slate-300">
         <Navbar />
-
-       {/* ── Logo Band ── */}
-<div className="fixed top-17 left-0 w-full z-[60] flex items-center justify-center pointer-events-none">
-          
-          {/* High-Visibility Horizontal Line */}
-          <div className="absolute left-0 right-0 h-[2px] bg-black/40 shadow-sm w-full"></div>
-
-          {/* Properly Visible Logo sitting on the line */}
-          <div className="relative z-10 px-6  pointer-events-auto">
-            <img
-              src="https://i.ibb.co/gFZbsc05/Wrii-LOGO-website.png"
-              alt="WRII Studio"
-              className="w-16 h-16 md:w-20 md:h-20 object-contain drop-shadow-md"
-            />
-          </div>
-        </div>
-{/* ── End Logo Band ── */}
-        {/* ── End Logo Band ── */}
-
         <Welcome />
         <Women_And_Kids
           imgurl="https://images.squarespace-cdn.com/content/v1/63810cc8347e214d6a1808a3/8dcdf168-1f1e-42ab-95f3-4e34eac60264/family-mum-child-garden-photography-plymouth-devon-1"

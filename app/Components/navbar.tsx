@@ -128,7 +128,7 @@ function Navbar() {
 
             {/* DESKTOP LINKS - LEFT */}
             <div className="hidden md:flex flex-1 items-center gap-24">
-              <Link href="/collections/" className="text-[11px] tracking-[0.25em] uppercase font-semibold">Shop</Link>
+              <Link href="/shop/" className="text-[11px] tracking-[0.25em] uppercase font-semibold">Shop</Link>
               <Link href="/campaign" className="text-[11px] tracking-[0.25em] uppercase font-semibold">Campaign</Link>
               <Link href="/collections/new-arrivals" className="text-[11px] tracking-[0.25em] uppercase font-semibold">New Arrival</Link>
             </div>
