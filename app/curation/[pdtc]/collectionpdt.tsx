@@ -30,9 +30,9 @@ function CollectionPdt({ category }: CollectionPdtProps) {
   const fetchProducts = async (pageNumber: number) => {
     try {
       setLoading(true);
-      const response = await app.get("/Product/pdtByCategory", {
+      const response = await app.get("/Product/pdtByConcept", {
         params: {
-          category,
+          concept: category,
           pageNumber,
           pageSize,
         },

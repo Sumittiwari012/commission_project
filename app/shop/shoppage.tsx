@@ -1,10 +1,9 @@
 "use client"
 import React, { useState } from 'react'
+import Link from 'next/link' 
 
 const ShopPage = () => {
-  // Main level dropdowns (CATEGORY, COLLECTION, etc.)
   const [openSection, setOpenSection] = useState<string | null>("COLLECTION");
-  // Nested dropdowns (WOMEN, KIDS)
   const [openSubSection, setOpenSubSection] = useState<string | null>(null);
 
   const collections = [
@@ -20,6 +19,11 @@ const ShopPage = () => {
     Kids: ["Jamdani Sarees"]
   };
 
+  // Helper function to format strings for URLs
+  const formatSlug = (text: string) => {
+    return text.toLowerCase().replace(/\s+/g, '-');
+  };
+
   const toggleSection = (label: string) => {
     setOpenSection(openSection === label ? null : label);
   };
@@ -31,7 +35,6 @@ const ShopPage = () => {
   return (
     <main className="relative min-h-screen bg-[#8b965e] py-20 px-10 font-mono text-[#dcdcdc] overflow-hidden">
       
-      {/* Navigation Content */}
       <div className="flex flex-col space-y-6 max-w-2xl relative z-10">
         
         {/* CATEGORY SECTION */}
@@ -46,7 +49,6 @@ const ShopPage = () => {
             <div className="flex flex-col space-y-4 pl-4 transition-all duration-300">
               {Object.entries(categoryData).map(([broadCat, items]) => (
                 <div key={broadCat} className="space-y-2">
-                  {/* Nested Sub-Header (Women/Kids) as a Dropdown */}
                   <div 
                     onClick={() => toggleSubSection(broadCat)}
                     className="flex items-center space-x-2 cursor-pointer group"
@@ -59,13 +61,16 @@ const ShopPage = () => {
                     </span>
                   </div>
 
-                  {/* Sub-items visible only when Sub-Header is open */}
                   {openSubSection === broadCat && (
                     <div className="flex flex-col space-y-1 pl-6 border-l border-[#dcdcdc]/20 transition-all">
                       {items.map((item) => (
-                        <button key={item} className="text-left hover:text-white transition-colors text-base tracking-wider uppercase opacity-80 hover:opacity-100">
+                        <Link 
+                          key={item} 
+                          href={item === "View All" ? "/curation/" : `/curation/${formatSlug(item)}`}
+                          className="text-left hover:text-white transition-colors text-base tracking-wider uppercase opacity-80 hover:opacity-100"
+                        >
                           {item === "Jamdani Sarees" && broadCat === "Kids" ? `• ${item}` : item}
-                        </button>
+                        </Link>
                       ))}
                     </div>
                   )}
@@ -86,29 +91,31 @@ const ShopPage = () => {
           {openSection === "COLLECTION" && (
             <div className="flex flex-col space-y-1 pl-4 transition-all duration-300">
               {collections.map((item) => (
-                <button key={item} className="text-left hover:text-white transition-colors text-lg tracking-wider uppercase">
+                <Link 
+                  key={item} 
+                  href={`/curation/${formatSlug(item)}`}
+                  className="text-left hover:text-white transition-colors text-lg tracking-wider uppercase"
+                >
                   {item}
-                </button>
+                </Link>
               ))}
             </div>
           )}
         </div>
 
         <div className="space-y-6 pt-4">
-          <NavItem label="NEW ARRIVAL" />
-          <NavItem label="BEST SELLER" />
-          <NavItem label="SHOP THE LOOK" />
+          <Link href={`/curation/${formatSlug("NEW ARRIVAL")}`} className="block"><NavItem label="NEW ARRIVAL" /></Link>
+          <Link href={`/curation/${formatSlug("BEST SELLER")}`} className="block"><NavItem label="BEST SELLER" /></Link>
+          <Link href={`/curation/${formatSlug("SHOP THE LOOK")}`} className="block"><NavItem label="SHOP THE LOOK" /></Link>
         </div>
       </div>
 
-      {/* Floating Elements */}
       <FloatingFish delay="0s"   top="65%" scale={1.1} speed="40s" />
       <FloatingFish delay="-10s"  top="72%" scale={0.6} speed="55s" />
       <FloatingFish delay="-25s"  top="78%" scale={0.9} speed="48s" />
       <FloatingFish delay="-40s"  top="85%" scale={0.5} speed="65s" />
       <FloatingFish delay="-15s"  top="90%" scale={0.7} speed="52s" />
 
-      {/* Styles */}
       <style jsx global>{`
         @keyframes swimPattern {
           0% { left: -150px; transform: rotateY(0deg); }

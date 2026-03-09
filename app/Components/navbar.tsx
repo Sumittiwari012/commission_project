@@ -2,7 +2,7 @@
 import Link from "next/link";
 import { useState, useEffect, useRef } from "react";
 import Image from "next/image";
-
+import { Search } from "lucide-react";
 function Navbar() {
   const [isOpen, setIsOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
@@ -106,8 +106,7 @@ function Navbar() {
   return (
     <>
       <nav
-        onMouseEnter={() => setIsHovered(true)}
-        onMouseLeave={() => setIsHovered(false)}
+        
         className={`fixed top-0 left-0 right-0 z-[100] px-4 md:px-6 py-2 transition-all duration-500 ${
           scrolled || isHovered ? "bg-white shadow-sm" : "bg-transparent"
         } text-black`}
@@ -127,20 +126,20 @@ function Navbar() {
             </button>
 
             {/* DESKTOP LINKS - LEFT */}
-            <div className="hidden md:flex flex-1 items-center gap-24">
+            <div className="hidden md:flex flex-1 items-center gap-36">
               <Link href="/shop/" className="text-[11px] tracking-[0.25em] uppercase font-semibold">Shop</Link>
               <Link href="/campaign" className="text-[11px] tracking-[0.25em] uppercase font-semibold">Campaign</Link>
-              <Link href="/collections/new-arrivals" className="text-[11px] tracking-[0.25em] uppercase font-semibold">New Arrival</Link>
+              <Link href="/collections/new-arrivals" className="text-[11px] tracking-[0.25em] uppercase font-semibold">Craft</Link>
             </div>
 
             {/* CENTER LOGO */}
             <div className="flex shrink-0 justify-center">
               <Link href="/" className="flex items-center">
                 <Image
-                  src="https://i.postimg.cc/85RHt9TY/WRII-STUDIO-website.png"
+                  src="https://i.ibb.co/QFK5ZSNM/Wrii-LOGO-website.png"
                   alt="WRII Studio"
-                  width={140}
-                  height={40}
+                  width={70}
+                  height={10}
                   priority
                   unoptimized
                   className="object-contain"
@@ -151,7 +150,12 @@ function Navbar() {
             {/* RIGHT-SIDE LINKS */}
             <div className="hidden md:flex flex-1 justify-end items-center gap-24">
               <Link href="/about" className="text-[11px] tracking-[0.25em] uppercase font-semibold">About</Link>
-              <Link href="/contact" className="text-[11px] tracking-[0.25em] uppercase font-semibold">Contact</Link>
+              <Link href="/curation" className="text-[11px] tracking-[0.25em] uppercase font-semibold">New In</Link>
+              <Link href="/search">
+              <button className="p-2 hover:bg-red/10 rounded-full transition-all">
+  <Search size={16} strokeWidth={2} />
+</button>
+        </Link>
               <Link href="/account/profile" className="text-[11px] tracking-[0.25em] uppercase font-semibold">Account</Link>
             </div>
 
