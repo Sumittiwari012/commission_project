@@ -1,15 +1,15 @@
 "use client";
 import Link from "next/link";
-import React, { useState } from 'react';
+import React, { useState, ChangeEvent, KeyboardEvent } from 'react';
 import { Search, PenLine, ArrowRight } from 'lucide-react';
-import { useRouter } from 'next/navigation'; // Import useRouter
+import { useRouter } from 'next/navigation';
 
 function SearchPage() {
   const [keyword, setKeyword] = useState('');
-  const router = useRouter(); // Initialize the router
+  const router = useRouter();
 
-  const handleSearch = (e) => {
-    // Prevent default if you're using a form, otherwise trigger navigation
+  // Removed the unused 'e' parameter to fix the build error
+  const handleSearch = () => {
     if (keyword.trim()) {
       router.push(`/curation/${encodeURIComponent(keyword)}`);
     }
@@ -34,7 +34,7 @@ function SearchPage() {
           
           {/* Animated Pen */}
           {keyword === '' && (
-            <div className="absolute top-[32px] left-0 flex items-center pointer-events-none animate-pulse">
+            <div className="absolute top-[64px] left-10 flex items-center pointer-events-none animate-pulse">
                <PenLine size={20} className="text-red-500 -rotate-45 mr-2" />
                <span className="text-[10px] tracking-widest text-red-400 font-bold uppercase">Ready to Write...</span>
             </div>
@@ -42,11 +42,13 @@ function SearchPage() {
 
           <textarea
             value={keyword}
-            onChange={(e) => setKeyword(e.target.value)}
+            // Explicitly typed the event as ChangeEvent
+            onChange={(e: ChangeEvent<HTMLTextAreaElement>) => setKeyword(e.target.value)}
             className="w-full flex-1 bg-transparent resize-none focus:outline-none text-lg md:text-xl leading-[42px] tracking-[0.15em] font-bold text-zinc-800 uppercase py-0 z-10"
             spellCheck="false"
             autoFocus
-            onKeyDown={(e) => {
+            // Explicitly typed the event as KeyboardEvent
+            onKeyDown={(e: KeyboardEvent<HTMLTextAreaElement>) => {
               if (e.key === 'Enter') {
                 e.preventDefault();
                 handleSearch();
@@ -62,7 +64,6 @@ function SearchPage() {
                   <span className="w-4 h-[1.5px] bg-red-600/40" />
                </div>
                
-               {/* Fixed Search Action */}
                <Link 
                 href={keyword.trim() ? `/curation/${encodeURIComponent(keyword)}` : "#"} 
                 className="group flex items-center gap-2 hover:opacity-70 transition-all cursor-pointer"
