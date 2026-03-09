@@ -31,7 +31,7 @@ function page() {
         />
         
         <Campaignad
-          imgurl1="https://drive.google.com/thumbnail?id=16EY9962RbBLSdEsGiaVIG9HQ0eYXehIC&sz=w1920-h1080"
+          imgurl1="https://drive.google.com/thumbnail?id=1KmB1vrWyHD8tnMBLAbEh7l-4QvScGCAH&sz=w1920-h1080"
           imgurl2="https://images.pexels.com/photos/7035487/pexels-photo-7035487.jpeg"
           imgurl3="https://images.pexels.com/photos/32558179/pexels-photo-32558179.jpeg"
           mobileImgUrl1="https://drive.google.com/thumbnail?id=1pXk4oqVhfdb4Euh9bsjVynA-oKHlQT4B&sz=w1920-h1080"
