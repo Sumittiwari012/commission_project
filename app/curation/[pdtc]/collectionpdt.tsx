@@ -75,7 +75,7 @@ function CollectionPdt({ category }: CollectionPdtProps) {
     <>
       <div className="bg-white">
         {/* Hero Section */}
-        <div className="relative w-full h-[30vh] md:h-[25vh] bg-[#e4c798] overflow-hidden">
+        <div className="relative w-full h-[30vh] md:h-[25vh] bg-[#FAEBD7] overflow-hidden">
           <img
             src="https://www.pacificplace.com.hk/-/media/images/pacificplace2/thestylesheet_article/italy-shoot-q3-25/pacific-place-lake-shoot-2.ashx?rev=0e1cc1df717346f49cc9ccd819e44407&hash=908BDE90616D841C90C21877B2A48868"
             alt="Hero Image"
@@ -116,7 +116,7 @@ function CollectionPdt({ category }: CollectionPdtProps) {
               {arrangedProducts.map((item) => (
                 <div key={item.productId} className="group cursor-pointer flex flex-col">
                   {/* Image Container */}
-                  <div className="relative aspect-[3/4] overflow-hidden bg-gray-50">
+                  <div className="relative aspect-[3/4] overflow-hidden bg-[#FAEBD7]">
                     <Link href={`/products/${item.productName.toLowerCase().replace(/\s+/g, '-')}-${item.productId}`}>
                       <img
                         src={item.productPageImageUrl}

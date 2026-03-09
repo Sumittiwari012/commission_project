@@ -1,9 +1,9 @@
 import Navbar from "../Components/navbar";
 import Footer from "../Components/footer";
 import Reviews from "../Components/reviews";
-import Styles from "../Components/newcollectionad";
+import Newcollectionad from "../Components/newcollectionad";
 import Welcome from "../Components/welcome";
-import WomenStyle from "../Components/campaignad";
+import Campaignad from "../Components/campaignad";
 import Women_And_Kids from "../Components/women_and_kids";
 import Pdtgallery from "../Components/pdtgallery";
 import Curatelook from "../Components/curatelook";
@@ -12,26 +12,29 @@ import Bestseller from "../Components/bestseller";
 function page() {
   return (
     <>
-      <div className="bg-slate-300">
+      <div className="bg-[#FAEBD7]">
         <Navbar />
         <Welcome />
+        
         <Women_And_Kids
-          imgurl="https://images.squarespace-cdn.com/content/v1/63810cc8347e214d6a1808a3/8dcdf168-1f1e-42ab-95f3-4e34eac60264/family-mum-child-garden-photography-plymouth-devon-1"
-          mobileImgUrl="https://images.pexels.com/photos/8562095/pexels-photo-8562095.jpeg"
+          imgurl="https://drive.google.com/thumbnail?id=11wNjGJHQAnD5cGRCpbkt5IHVxjraHbi8&sz=w1920-h1080"
+          mobileImgUrl="https://drive.google.com/thumbnail?id=1dgTQ7-kSQaVd4EpELf60XIDUi_QUZ3mh&sz=w1920-h1080"
         />
-        <Styles
-          imgurl1="https://www.ukmodels.co.uk/wp-content/uploads/2020/08/shutterstock_1489165622-scaled.jpg"
+        
+        <Newcollectionad
+          imgurl1="https://drive.google.com/thumbnail?id=1PFky0SmU8DNLtIEI3FCpSmLw6DngL2UR&sz=w1920-h1080"
           imgurl2="https://media.istockphoto.com/id/524161710/photo/portrait-of-a-cute-little-girl-in-fashionable-clothes.jpg?s=612x612&w=0&k=20&c=OdFuuFqGR2UWD0UL7SnAV5mPzsWTwD5OVQASQGPz9Yw="
           imgurl3="https://thumbs.dreamstime.com/b/young-girl-model-poses-to-photographer-female-kid-i-beautiful-dress-outside-young-girl-model-poses-to-photographer-female-kid-i-181764360.jpg"
-          mobileImgUrl1="https://images.pexels.com/photos/32620521/pexels-photo-32620521.jpeg"
+          mobileImgUrl1="https://drive.google.com/thumbnail?id=1i8CKSDUubs89AlJwdN0QlJrEz5ohliSb&sz=w1920-h1080"
           mobileImgUrl2="https://images.pexels.com/photos/8421992/pexels-photo-8421992.jpeg"
           mobileImgUrl3="https://images.pexels.com/photos/6261907/pexels-photo-6261907.jpeg"
         />
-        <WomenStyle
-          imgurl1="https://images.pexels.com/photos/3626313/pexels-photo-3626313.jpeg"
+        
+        <Campaignad
+          imgurl1="https://drive.google.com/thumbnail?id=16EY9962RbBLSdEsGiaVIG9HQ0eYXehIC&sz=w1920-h1080"
           imgurl2="https://images.pexels.com/photos/7035487/pexels-photo-7035487.jpeg"
           imgurl3="https://images.pexels.com/photos/32558179/pexels-photo-32558179.jpeg"
-          mobileImgUrl1="https://images.pexels.com/photos/2587391/pexels-photo-2587391.jpeg"
+          mobileImgUrl1="https://drive.google.com/thumbnail?id=1pXk4oqVhfdb4Euh9bsjVynA-oKHlQT4B&sz=w1920-h1080"
           mobileImgUrl2="https://images.pexels.com/photos/1926769/pexels-photo-1926769.jpeg"
           mobileImgUrl3="https://images.pexels.com/photos/2916814/pexels-photo-2916814.jpeg"
         />

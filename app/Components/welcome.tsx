@@ -3,10 +3,11 @@ import Image from "next/image";
 
 function Welcome() {
   // Mobile Video Source
-  const mobileImageSrc = "https://images.pexels.com/photos/18436978/pexels-photo-18436978.jpeg"; 
+  
+  const mobileImageSrc = "https://drive.google.com/thumbnail?id=1hQllApRaywOKA0syxaQeCx-ACl0XwbdA&sz=w1920-h1080"; 
   
   // Desktop Image Source (Using your WRII Studio branding style)
-  const desktopImageSrc = "https://images.pexels.com/photos/34314126/pexels-photo-34314126.jpeg";
+  const desktopImageSrc = "https://drive.google.com/thumbnail?id=18aOsTCBgxkIPVFKmtmxcr2mcRP4I5VdH&sz=w1920-h1080";
 
   return (
     <section id="welcome" className=" top-0 h-screen w-full overflow-hidden bg-black">

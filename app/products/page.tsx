@@ -4,9 +4,11 @@ import Footer from "@/app/Components/footer"
 function page() {
   return (
     <>
-    <Navbar/>
-    <ProductPage />
-    <Footer/>
+    <div className="bg-[#FAEBD7]">
+      <Navbar/>
+      <ProductPage />
+      <Footer/>
+    </div>
     </>
     
   )

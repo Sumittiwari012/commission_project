@@ -7,9 +7,11 @@ async function page({params}:{params:Promise<{pdtc:string}>}) {
     const {pdtc} =(await  params);
   return (
     <>
+    <div className="bg-[#FAEBD7]">
       <Navbar/>
    <CollectionPdt category={pdtc} />
    <Footer/>
+   </div>
     </>
   )
 }
