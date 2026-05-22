@@ -15,12 +15,6 @@ function page() {
       <div className="bg-[#FAEBD7]">
         <Navbar />
         <Welcome />
-        
-        <Women_And_Kids
-          imgurl="https://drive.google.com/thumbnail?id=11wNjGJHQAnD5cGRCpbkt5IHVxjraHbi8&sz=w1920-h1080"
-          mobileImgUrl="https://drive.google.com/thumbnail?id=1dgTQ7-kSQaVd4EpELf60XIDUi_QUZ3mh&sz=w1920-h1080"
-        />
-        
         <Newcollectionad
           imgurl1="https://drive.google.com/thumbnail?id=1PFky0SmU8DNLtIEI3FCpSmLw6DngL2UR&sz=w1920-h1080"
           imgurl2="https://media.istockphoto.com/id/524161710/photo/portrait-of-a-cute-little-girl-in-fashionable-clothes.jpg?s=612x612&w=0&k=20&c=OdFuuFqGR2UWD0UL7SnAV5mPzsWTwD5OVQASQGPz9Yw="
@@ -29,6 +23,12 @@ function page() {
           mobileImgUrl2="https://images.pexels.com/photos/8421992/pexels-photo-8421992.jpeg"
           mobileImgUrl3="https://images.pexels.com/photos/6261907/pexels-photo-6261907.jpeg"
         />
+        <Women_And_Kids
+          imgurl="https://drive.google.com/thumbnail?id=11wNjGJHQAnD5cGRCpbkt5IHVxjraHbi8&sz=w1920-h1080"
+          mobileImgUrl="https://drive.google.com/thumbnail?id=1dgTQ7-kSQaVd4EpELf60XIDUi_QUZ3mh&sz=w1920-h1080"
+        />
+        
+        
         
         <Campaignad
           imgurl1="https://drive.google.com/thumbnail?id=1KmB1vrWyHD8tnMBLAbEh7l-4QvScGCAH&sz=w1920-h1080"
@@ -51,7 +51,6 @@ function page() {
         />
         <Curatelook />
         <Bestseller />
-        <Reviews />
         <Footer />
       </div>
     </>

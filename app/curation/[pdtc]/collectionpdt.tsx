@@ -37,6 +37,7 @@ function CollectionPdt({ category }: CollectionPdtProps) {
           pageSize,
         },
       });
+      console.log(response.data);
       setProducts(response.data.products);
       setTotalPages(response.data.totalPages);
     } catch (error) {
@@ -77,7 +78,7 @@ function CollectionPdt({ category }: CollectionPdtProps) {
         {/* Hero Section */}
         <div className="relative w-full h-[30vh] md:h-[25vh] bg-[#FAEBD7] overflow-hidden">
           <img
-            src="https://www.pacificplace.com.hk/-/media/images/pacificplace2/thestylesheet_article/italy-shoot-q3-25/pacific-place-lake-shoot-2.ashx?rev=0e1cc1df717346f49cc9ccd819e44407&hash=908BDE90616D841C90C21877B2A48868"
+            src="https://drive.google.com/thumbnail?id=1w59aoJuv8LYUaauMp4drXrxb-ZFHW0z8"
             alt="Hero Image"
             className="w-full h-full object-cover"
           />

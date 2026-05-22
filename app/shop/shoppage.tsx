@@ -19,7 +19,6 @@ const ShopPage = () => {
     Kids: ["Jamdani Sarees"]
   };
 
-  // Helper function to format strings for URLs
   const formatSlug = (text: string) => {
     return text.toLowerCase().replace(/\s+/g, '-');
   };
@@ -33,12 +32,12 @@ const ShopPage = () => {
   };
 
   return (
-    <main className="relative min-h-screen bg-[#8b965e] py-20 px-10 font-mono text-[#dcdcdc] overflow-hidden">
+    <main className="relative min-h-screen bg-[#8b965e] py-20 px-10 2xl:py-40 2xl:px-24 font-mono text-[#dcdcdc] overflow-hidden">
       
-      <div className="flex flex-col space-y-6 max-w-2xl relative z-10">
+      <div className="flex flex-col space-y-6 2xl:space-y-12 max-w-2xl 2xl:max-w-5xl relative z-10">
         
         {/* CATEGORY SECTION */}
-        <div className="space-y-4">
+        <div className="space-y-4 2xl:space-y-8">
           <NavItem 
             label="CATEGORY" 
             isOpen={openSection === "CATEGORY"} 
@@ -46,28 +45,28 @@ const ShopPage = () => {
           />
           
           {openSection === "CATEGORY" && (
-            <div className="flex flex-col space-y-4 pl-4 transition-all duration-300">
+            <div className="flex flex-col space-y-4 2xl:space-y-8 pl-4 2xl:pl-8 transition-all duration-300">
               {Object.entries(categoryData).map(([broadCat, items]) => (
-                <div key={broadCat} className="space-y-2">
+                <div key={broadCat} className="space-y-2 2xl:space-y-4">
                   <div 
                     onClick={() => toggleSubSection(broadCat)}
                     className="flex items-center space-x-2 cursor-pointer group"
                   >
-                    <span className={`text-lg tracking-wider uppercase transition-colors ${openSubSection === broadCat ? 'text-white' : 'group-hover:text-white opacity-90'}`}>
+                    <span className={`text-lg 2xl:text-4xl tracking-wider uppercase transition-colors ${openSubSection === broadCat ? 'text-white' : 'group-hover:text-white opacity-90'}`}>
                       {broadCat}
                     </span>
-                    <span className={`text-sm transition-transform duration-300 ${openSubSection === broadCat ? 'rotate-90' : ''}`}>
+                    <span className={`text-sm 2xl:text-2xl transition-transform duration-300 ${openSubSection === broadCat ? 'rotate-90' : ''}`}>
                       {">"}
                     </span>
                   </div>
 
                   {openSubSection === broadCat && (
-                    <div className="flex flex-col space-y-1 pl-6 border-l border-[#dcdcdc]/20 transition-all">
+                    <div className="flex flex-col space-y-1 2xl:space-y-3 pl-6 2xl:pl-10 border-l border-[#dcdcdc]/20 transition-all">
                       {items.map((item) => (
                         <Link 
                           key={item} 
                           href={item === "View All" ? "/curation/" : `/curation/${formatSlug(item)}`}
-                          className="text-left hover:text-white transition-colors text-base tracking-wider uppercase opacity-80 hover:opacity-100"
+                          className="text-left hover:text-white transition-colors text-base 2xl:text-3xl tracking-wider uppercase opacity-80 hover:opacity-100"
                         >
                           {item === "Jamdani Sarees" && broadCat === "Kids" ? `• ${item}` : item}
                         </Link>
@@ -81,7 +80,7 @@ const ShopPage = () => {
         </div>
 
         {/* COLLECTION SECTION */}
-        <div className="space-y-4">
+        <div className="space-y-4 2xl:space-y-8">
           <NavItem 
             label="COLLECTION" 
             isOpen={openSection === "COLLECTION"} 
@@ -89,12 +88,12 @@ const ShopPage = () => {
           />
           
           {openSection === "COLLECTION" && (
-            <div className="flex flex-col space-y-1 pl-4 transition-all duration-300">
+            <div className="flex flex-col space-y-1 2xl:space-y-3 pl-4 2xl:pl-8 transition-all duration-300">
               {collections.map((item) => (
                 <Link 
                   key={item} 
                   href={`/curation/${formatSlug(item)}`}
-                  className="text-left hover:text-white transition-colors text-lg tracking-wider uppercase"
+                  className="text-left hover:text-white transition-colors text-lg 2xl:text-4xl tracking-wider uppercase"
                 >
                   {item}
                 </Link>
@@ -103,7 +102,7 @@ const ShopPage = () => {
           )}
         </div>
 
-        <div className="space-y-6 pt-4">
+        <div className="space-y-6 2xl:space-y-12 pt-4 2xl:pt-8">
           <Link href={`/curation/${formatSlug("NEW ARRIVAL")}`} className="block"><NavItem label="NEW ARRIVAL" /></Link>
           <Link href={`/curation/${formatSlug("BEST SELLER")}`} className="block"><NavItem label="BEST SELLER" /></Link>
           <Link href={`/curation/${formatSlug("SHOP THE LOOK")}`} className="block"><NavItem label="SHOP THE LOOK" /></Link>
@@ -135,6 +134,9 @@ const ShopPage = () => {
           z-index: 5;
           animation: swimPattern var(--speed) linear infinite;
           animation-delay: var(--delay);
+        }
+        @media (min-width: 1536px) {
+          .fish-tank { width: 280px; }
         }
         .wave-layer {
           animation: wavy 8s ease-in-out infinite;
@@ -170,12 +172,12 @@ const FloatingFish = ({ delay, top, scale, speed }: { delay: string, top: string
 const NavItem = ({ label, isOpen, onClick }: { label: string, isOpen?: boolean, onClick?: () => void }) => (
   <div 
     onClick={onClick}
-    className="flex items-center justify-between w-full max-w-[300px] cursor-pointer group border-b border-transparent hover:border-[#dcdcdc] transition-all"
+    className="flex items-center justify-between w-full max-w-[300px] 2xl:max-w-[600px] cursor-pointer group border-b border-transparent hover:border-[#dcdcdc] transition-all"
   >
-    <span className={`text-xl font-medium tracking-widest transition-colors ${isOpen ? 'text-white' : 'group-hover:text-white'}`}>
+    <span className={`text-xl 2xl:text-5xl font-medium tracking-widest transition-colors ${isOpen ? 'text-white' : 'group-hover:text-white'}`}>
       {label}
     </span>
-    <span className={`text-xl transition-transform duration-300 ${isOpen ? 'rotate-90' : ''}`}>
+    <span className={`text-xl 2xl:text-4xl transition-transform duration-300 ${isOpen ? 'rotate-90' : ''}`}>
       {">"}
     </span>
   </div>

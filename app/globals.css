@@ -1,2 +1,12 @@
 @import "tailwindcss";
 
+.shop-link {
+  font-size: 15px;
+}
+
+@media (min-width: 1920px) {
+  .shop-link {
+    font-size: 280px !important;
+    background: red !important;
+  }
+}
