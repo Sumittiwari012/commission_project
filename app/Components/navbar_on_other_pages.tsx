@@ -6,7 +6,7 @@ import { Search, ShoppingBag } from "lucide-react";
 import { privateApi } from '@/lib/app';
 import { useAuth } from '@/context/AuthContext';
 
-function Navbar() {
+function Navbar_on_other_pages() {
   const [isOpen, setIsOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
   const [isHovered, setIsHovered] = useState(false);
@@ -89,11 +89,7 @@ function Navbar() {
 
   return (
     <>
-      <nav
-        className={`fixed top-1 left-0 right-0 z-[100] transition-all duration-500 ${
-          scrolled || isHovered ? "bg-[#10995b] shadow-sm" : "bg-transparent"
-        } text-black`}
-      >
+      <nav className="fixed top-1 left-0 right-0 z-[100] bg-white shadow-sm transition-all duration-500 text-black">
         <div className="w-full">
           <div className="flex h-20 2xl:h-44 items-center justify-between px-5 2xl:px-20 transition-all duration-500">
 
@@ -113,10 +109,10 @@ function Navbar() {
 
               {/* LEFT GROUP */}
               <div className="flex items-center justify-between pr-28 2xl:pr-48">
-                <Link href="/shop/" className="text-[14px] 2xl:text-[30px] tracking-[0.15em] uppercase font-normal text-white hover:opacity-50 transition-opacity">Shop</Link>
-                <Link href="/campaign" className="text-[14px] 2xl:text-[30px] tracking-[0.15em] uppercase font-normal text-white hover:opacity-50 transition-opacity">Campaign</Link>
-                <Link href="/collections/new-arrivals" className="text-[14px] 2xl:text-[30px] tracking-[0.15em] uppercase font-normal text-white hover:opacity-50 transition-opacity">Craft</Link>
-                <Link href="/curation" className="text-[14px] 2xl:text-[30px] tracking-[0.15em] uppercase font-normal text-white hover:opacity-50 transition-opacity">New In</Link>
+                <Link href="/shop/" className="text-[14px] 2xl:text-[30px] tracking-[0.15em] uppercase font-normal text-black hover:opacity-50 transition-opacity">Shop</Link>
+                <Link href="/campaign" className="text-[14px] 2xl:text-[30px] tracking-[0.15em] uppercase font-normal text-black hover:opacity-50 transition-opacity">Campaign</Link>
+                <Link href="/collections/new-arrivals" className="text-[14px] 2xl:text-[30px] tracking-[0.15em] uppercase font-normal text-black hover:opacity-50 transition-opacity">Craft</Link>
+                <Link href="/curation" className="text-[14px] 2xl:text-[30px] tracking-[0.15em] uppercase font-normal text-black hover:opacity-50 transition-opacity">New In</Link>
               </div>
 
               {/* CENTER LOGO */}
@@ -136,17 +132,17 @@ function Navbar() {
 
               {/* RIGHT GROUP */}
               <div className="flex items-center justify-between pl-28 2xl:pl-48">
-                <Link href="/about" className="text-[14px] 2xl:text-[30px] tracking-[0.15em] uppercase font-normal text-white hover:opacity-50 transition-opacity">About</Link>
-                <Link href="/search" className="text-[14px] 2xl:text-[30px] tracking-[0.15em] uppercase font-normal text-white hover:opacity-50 transition-opacity">Search</Link>
-                <Link href="/account/profile" className="text-[14px] 2xl:text-[30px] tracking-[0.15em] uppercase font-normal text-white hover:opacity-50 transition-opacity">Account</Link>
+                <Link href="/about" className="text-[14px] 2xl:text-[30px] tracking-[0.15em] uppercase font-normal text-black hover:opacity-50 transition-opacity">About</Link>
+                <Link href="/search" className="text-[14px] 2xl:text-[30px] tracking-[0.15em] uppercase font-normal text-black hover:opacity-50 transition-opacity">Search</Link>
+                <Link href="/account/profile" className="text-[14px] 2xl:text-[30px] tracking-[0.15em] uppercase font-normal text-black hover:opacity-50 transition-opacity">Account</Link>
 
                 {/* Cart — same logic as CollectionPdt floating button */}
                 <Link
                   href="/account/profile"
                   className={`relative flex items-center justify-center transition-all duration-300 hover:opacity-50 ${cartBounce ? "animate-bounce" : ""}`}
                 >
-                  <ShoppingBag size={18} strokeWidth={1.5} className="text-white 2xl:w-7 2xl:h-7" />
-                  <span className="absolute w-5 h-5 rounded-full bg-white/20 animate-ping" />
+                  <ShoppingBag size={18} strokeWidth={1.5} className="text-black 2xl:w-7 2xl:h-7" />
+                  <span className="absolute w-5 h-5 rounded-full bg-black/20 animate-ping" />
                   {cartCount > 0 && (
                     <span className="absolute -top-2 -right-2 w-4 h-4 rounded-full bg-white text-[#10995b] text-[9px] font-bold flex items-center justify-center shadow-sm">
                       {cartCount > 99 ? "99+" : cartCount}
@@ -210,4 +206,4 @@ function Navbar() {
   );
 }
 
-export default Navbar;
+export default Navbar_on_other_pages;

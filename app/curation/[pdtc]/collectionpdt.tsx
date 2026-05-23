@@ -155,20 +155,6 @@ useEffect(() => {
 
       {/* Floating Cart Button */}
       {/* Floating Cart Button */}
-<Link
-  href="/account/profile"
-  className={`fixed bottom-8 right-8 z-[200] w-16 h-16 rounded-full bg-[#10995b] shadow-lg flex items-center justify-center group transition-all duration-300 hover:scale-110 hover:shadow-xl ${
-    cartBounce ? "animate-bounce" : ""
-  }`}
->
-  <ShoppingBag size={26} strokeWidth={1.5} className="text-white transition-transform duration-300 group-hover:scale-110" />
-  <span className="absolute w-16 h-16 rounded-full bg-[#10995b]/40 animate-ping" />
-  {cartCount > 0 && (
-    <span className="absolute -top-1 -right-1 w-5 h-5 rounded-full bg-white text-[#10995b] text-[10px] font-bold flex items-center justify-center shadow-sm">
-      {cartCount > 99 ? "99+" : cartCount}
-    </span>
-  )}
-</Link>
 
       {/* Pagination */}
       <div className="flex justify-center mt-8 mb-20">

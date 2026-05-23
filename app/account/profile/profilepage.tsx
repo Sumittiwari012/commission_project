@@ -5,6 +5,7 @@ import React, { useEffect, useState } from 'react';
 import { useRouter } from 'next/navigation';
 import { privateApi,updateMemoryToken } from '@/lib/app';
 import Navbar from '@/app/Components/navbar';
+import Navbar_on_other_pages from '@/app/Components/navbar_on_other_pages';
 
 function ProfilePage() {
 type UserProfile = {
@@ -118,7 +119,7 @@ const [loadingProfile, setLoadingProfile] = useState(true);
   return (
     <>
       {/* 1. AESTHETIC BACKGROUND - Optimized blur for mobile */}
-      <Navbar/>
+      <Navbar_on_other_pages/>
       <div className="fixed inset-0 -z-10 overflow-hidden">
         <div className="absolute top-[-10%] left-[-10%] w-[100%] md:w-[60%] h-[60%] rounded-full bg-blue-50/60 blur-[80px] md:blur-[120px] animate-pulse"></div>
         <div className="absolute bottom-[-10%] right-[-10%] w-[80%] md:w-[50%] h-[50%] rounded-full bg-orange-50/50 blur-[80px] md:blur-[100px] animate-[pulse_10s_infinite]"></div>
