@@ -33,12 +33,12 @@ function SearchPage() {
         <div className="relative flex-1 z-10 flex flex-col px-10 pb-4 pt-[64px]">
           
           {/* Animated Pen */}
-          {keyword === '' && (
+         {/* {keyword === '' && (
             <div className="absolute top-[64px] left-10 flex items-center pointer-events-none animate-pulse">
                <PenLine size={20} className="text-red-500 -rotate-45 mr-2" />
                <span className="text-[10px] tracking-widest text-red-400 font-bold uppercase">Ready to Write...</span>
             </div>
-          )}
+          )}*/}
 
           <textarea
             value={keyword}
@@ -83,15 +83,7 @@ function SearchPage() {
         <div className="absolute inset-0 pointer-events-none opacity-[0.03] bg-[url('https://www.transparenttextures.com/patterns/felt.png')]" />
       </div>
 
-      <style jsx>{`
-        @keyframes pulse {
-          0%, 100% { transform: translateY(0) rotate(-45deg); opacity: 0.6; }
-          50% { transform: translateY(-5px) rotate(-40deg); opacity: 1; }
-        }
-        .animate-pulse {
-          animation: pulse 2s ease-in-out infinite;
-        }
-      `}</style>
+      
     </div>
   );
 }
