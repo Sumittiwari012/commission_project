@@ -94,51 +94,72 @@ useEffect(() => {
             alt="Hero Image"
             className="w-full h-full object-cover"
           />
-          <div className="absolute inset-0 flex flex-col items-center justify-end text-white text-center pb-6 px-4 bg-black/5">
-            <h2 className="text-3xl md:text-5xl font-serif italic tracking-widest uppercase mb-4">
+          <div className="absolute inset-0 flex flex-col items-center justify-end text-white text-center pb-4 2xl:pb-5 px-4 bg-black/5">
+           <h2 className="text-xl md:text-3xl 2xl:text-6xl font-serif italic tracking-[0.18em] uppercase mb-2">
               {category.replace(/-/g, ' ')}
             </h2>
-            <div className="h-[1px] w-16 bg-white/70" />
+            <div className="h-[1px] w-10 2xl:w-12 bg-white/70" />
           </div>
         </div>
 
         {/* Sticky Filter Bar */}
-        <div className="sticky top-16 md:top-[80px] z-[40] h-[10vh] flex items-center justify-center px-4">
+        {/*<div className="sticky top-16 md:top-[80px] z-[40] h-[10vh] flex items-center justify-center px-4">
           <div className="flex items-center gap-4 bg-white px-6 py-2 rounded-full border shadow-sm">
             <label className="text-[9px] uppercase tracking-widest text-gray-400 font-bold">Sort By:</label>
             <select 
               value={sortOrder}
               onChange={(e) => setSortOrder(e.target.value)}
-              className="bg-transparent text-[10px] md:text-xs text-black font-bold uppercase tracking-widest focus:outline-none cursor-pointer"
+              className="bg-transparent text-[10px] md:text-xs 2xl:text-lg text-black font-bold uppercase tracking-widest focus:outline-none cursor-pointer"
             >
               <option value="default">New Arrivals</option>
               <option value="lowToHigh">Price: Low to High</option>
               <option value="highToLow">Price: High to Low</option>
             </select>
           </div>
-        </div>
+        </div>*/}
 
         {/* Product Grid — full-width with proportional padding at all sizes */}
         <div className="w-full px-4 md:px-8 xl:px-16 2xl:px-24 py-10">
           {loading && products.length === 0 ? (
             <div className="flex justify-center items-center h-[40vh]">
-              <div className="animate-pulse text-gray-300 uppercase tracking-[0.3em] text-xs">Loading Collection...</div>
+              <div className="animate-pulse text-gray-300 uppercase tracking-[0.3em] text-xs 2xl:text-lg">Loading Collection...</div>
             </div>
           ) : (
             <div className="grid grid-cols-2 lg:grid-cols-4 gap-x-4 gap-y-12 md:gap-x-8 md:gap-y-16">
               {arrangedProducts.map((item) => (
                 <div key={item.productId} className="group cursor-pointer flex flex-col">
-                  <div className="relative aspect-[3/4] overflow-hidden bg-[#FAEBD7]">
-                    <Link href={`/products/${item.productName.toLowerCase().replace(/\s+/g, '-')}-${item.productId}`}>
-                      <img
-                        src={item.productPageImageUrl}
-                        alt={item.productName}
-                        className="w-full h-full object-cover transition-transform duration-1000 group-hover:scale-105"
-                      />
-                    </Link>
-                  </div>
+                  <div className="relative aspect-[3/4] overflow-hidden bg-[#FAEBD7] group">
+  <Link
+    href={`/products/${item.productName.toLowerCase().replace(/\s+/g, '-')}-${item.productId}`}
+    className="block w-full h-full"
+  >
+
+    {/* IMAGE */}
+    <img
+      src={item.productPageImageUrl}
+      alt={item.productName}
+      className="absolute inset-0 w-full h-full object-cover z-10 transition-opacity duration-500 group-hover:opacity-0"
+    />
+
+    {/* VIDEO */}
+    <video
+  muted
+  loop
+  autoPlay
+  playsInline
+  preload="auto"
+  className="absolute inset-0 w-full h-full object-cover z-0"
+>
+  <source
+    src="https://www.pexels.com/download/video/8402436/"
+    type="video/mp4"
+  />
+</video>
+
+  </Link>
+</div>
                   {/* Product card text */}
-<div className="mt-5 text-center px-2">
+<div className="mt-5 2xl:mt-7 text-center px-2">
   <h3 className="text-[13px] md:text-[15px] uppercase tracking-widest text-gray-800 font-medium mb-1">
     {item.productName.replace(/-/g, ' ')}
   </h3>
@@ -169,6 +190,10 @@ useEffect(() => {
           sx={{
             '& .MuiPaginationItem-root': {
               fontSize: '0.75rem',
+
+'@media (min-width:1536px)': {
+  fontSize: '1.1rem',
+},
               fontFamily: 'inherit',
               letterSpacing: '0.1em'
             }

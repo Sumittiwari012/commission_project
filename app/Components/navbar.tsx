@@ -15,7 +15,6 @@ function Navbar() {
 
   const { isRestoring } = useAuth();
 
-  // — exact same fetchCartCount as CollectionPdt —
   const fetchCartCount = async () => {
     try {
       const response = await privateApi.post("/User/cartItemCount");
@@ -29,17 +28,12 @@ function Navbar() {
     }
   };
 
-  // — exact same effects as CollectionPdt —
   useEffect(() => {
-    if (!isRestoring) {
-      fetchCartCount();
-    }
+    if (!isRestoring) fetchCartCount();
   }, [isRestoring]);
 
   useEffect(() => {
-    const handleFocus = () => {
-      if (!isRestoring) fetchCartCount();
-    };
+    const handleFocus = () => { if (!isRestoring) fetchCartCount(); };
     window.addEventListener("focus", handleFocus);
     return () => window.removeEventListener("focus", handleFocus);
   }, [isRestoring]);
@@ -53,20 +47,8 @@ function Navbar() {
   }, []);
 
   const categories = {
-    women: [
-      "Women-White-Shirts",
-      "Women-Summer-Dresses",
-      "Women-Knitted-Sweaters",
-      "Women-Cotton-Trousers",
-      "Women-Classic-Denim",
-    ],
-    girls: [
-      "Girls-Winter-Coats",
-      "Girls-Floral-Dresses",
-      "Girls-Denim-Jackets",
-      "Girls-Basic-Tees",
-      "Girls-Active-Leggings",
-    ],
+    women: ["Women-White-Shirts","Women-Summer-Dresses","Women-Knitted-Sweaters","Women-Cotton-Trousers","Women-Classic-Denim"],
+    girls: ["Girls-Winter-Coats","Girls-Floral-Dresses","Girls-Denim-Jackets","Girls-Basic-Tees","Girls-Active-Leggings"],
   };
 
   const mobileMenuItems = [
@@ -89,20 +71,17 @@ function Navbar() {
 
   return (
     <>
-      <nav
-        className={`fixed top-1 left-0 right-0 z-[100] transition-all duration-500 ${
-          scrolled || isHovered ? "bg-[#10995b] shadow-sm" : "bg-transparent"
-        } text-black`}
-      >
+      <nav className={`fixed top-0 left-0 right-0 z-[100] transition-all duration-500 ${
+        scrolled || isHovered ? "bg-[#10995b] shadow-sm" : "bg-transparent"
+      } text-black`}>
         <div className="w-full">
-          <div className="flex h-20 2xl:h-44 items-center justify-between px-5 2xl:px-20 transition-all duration-500">
+          <div className="flex h-17 2xl:h-36 items-center justify-between px-5 2xl:px-20 transition-all duration-500"
+            style={{ height: 'clamp(68px, 5vw, 100px)' }}>
 
             {/* MOBILE HAMBURGER */}
-            <button
-              onClick={() => setIsOpen(!isOpen)}
+            <button onClick={() => setIsOpen(!isOpen)}
               className="flex flex-1 md:hidden flex-col gap-1.5 z-[110] relative focus:outline-none"
-              aria-label="Toggle Menu"
-            >
+              aria-label="Toggle Menu">
               <span className={`h-[1.5px] bg-black transition-all duration-300 ${isOpen ? "w-6 rotate-45 translate-y-2" : "w-6"}`} />
               <span className={`h-[1.5px] bg-black transition-all duration-300 ${isOpen ? "opacity-0" : "w-4"}`} />
               <span className={`h-[1.5px] bg-black transition-all duration-300 ${isOpen ? "w-6 -rotate-45 -translate-y-2" : "w-6"}`} />
@@ -112,15 +91,15 @@ function Navbar() {
             <div className="hidden md:grid flex-1 grid-cols-[1fr_auto_1fr] items-center">
 
               {/* LEFT GROUP */}
-              <div className="flex items-center justify-between pr-28 2xl:pr-48">
-                <Link href="/shop/" className="text-[14px] 2xl:text-[30px] tracking-[0.15em] uppercase font-normal text-white hover:opacity-50 transition-opacity">Shop</Link>
-                <Link href="/campaign" className="text-[14px] 2xl:text-[30px] tracking-[0.15em] uppercase font-normal text-white hover:opacity-50 transition-opacity">Campaign</Link>
-                <Link href="/collections/new-arrivals" className="text-[14px] 2xl:text-[30px] tracking-[0.15em] uppercase font-normal text-white hover:opacity-50 transition-opacity">Craft</Link>
-                <Link href="/curation" className="text-[14px] 2xl:text-[30px] tracking-[0.15em] uppercase font-normal text-white hover:opacity-50 transition-opacity">New In</Link>
+              <div className="flex items-center justify-between pr-28 2xl:pr-36">
+                <Link href="/shop/" className="text-[13px] 2xl:text-[28px] tracking-[0.15em] uppercase font-normal text-white hover:opacity-50 transition-opacity">Shop</Link>
+                <Link href="/campaign" className="text-[13px] 2xl:text-[28px] tracking-[0.15em] uppercase font-normal text-white hover:opacity-50 transition-opacity">Campaign</Link>
+                <Link href="/collections/new-arrivals" className="text-[13px] 2xl:text-[28px] tracking-[0.15em] uppercase font-normal text-white hover:opacity-50 transition-opacity">Craft</Link>
+                <Link href="/curation" className="text-[13px] 2xl:text-[28px] tracking-[0.15em] uppercase font-normal text-white hover:opacity-50 transition-opacity">New In</Link>
               </div>
 
               {/* CENTER LOGO */}
-              <div className="flex shrink-0 justify-center py-1 2xl:py-7">
+              <div className="flex shrink-0 justify-center pt-1.5 2xl:py-4">
                 <Link href="/" className="flex items-center">
                   <Image
                     src="https://i.ibb.co/QFK5ZSNM/Wrii-LOGO-website.png"
@@ -129,23 +108,23 @@ function Navbar() {
                     height={22}
                     priority
                     unoptimized
-                    className="object-contain w-[90px] 2xl:w-[165px] h-auto"
+                    className="object-contain w-[65px] 2xl:w-[130px] h-auto"
                   />
                 </Link>
               </div>
 
               {/* RIGHT GROUP */}
-              <div className="flex items-center justify-between pl-28 2xl:pl-48">
-                <Link href="/about" className="text-[14px] 2xl:text-[30px] tracking-[0.15em] uppercase font-normal text-white hover:opacity-50 transition-opacity">About</Link>
-                <Link href="/search" className="text-[14px] 2xl:text-[30px] tracking-[0.15em] uppercase font-normal text-white hover:opacity-50 transition-opacity">Search</Link>
-                <Link href="/account/profile" className="text-[14px] 2xl:text-[30px] tracking-[0.15em] uppercase font-normal text-white hover:opacity-50 transition-opacity">Account</Link>
+              <div className="flex items-center justify-between pl-28 2xl:pl-36">
+                <Link href="/about" className="text-[13px] 2xl:text-[28px] tracking-[0.15em] uppercase font-normal text-white hover:opacity-50 transition-opacity">About</Link>
+                <Link href="/search" className="text-[13px] 2xl:text-[28px] tracking-[0.15em] uppercase font-normal text-white hover:opacity-50 transition-opacity">Search</Link>
+                <Link href="/account/profile" className="text-[13px] 2xl:text-[28px] tracking-[0.15em] uppercase font-normal text-white hover:opacity-50 transition-opacity">Account</Link>
 
                 {/* Cart — same logic as CollectionPdt floating button */}
                 <Link
                   href="/account/profile"
                   className={`relative flex items-center justify-center transition-all duration-300 hover:opacity-50 ${cartBounce ? "animate-bounce" : ""}`}
                 >
-                  <ShoppingBag size={18} strokeWidth={1.5} className="text-white 2xl:w-7 2xl:h-7" />
+                  <ShoppingBag size={18} strokeWidth={1.3} className="text-white 2xl:w-10 2xl:h-10" />
                   <span className="absolute w-5 h-5 rounded-full bg-white/20 animate-ping" />
                   {cartCount > 0 && (
                     <span className="absolute -top-2 -right-2 w-4 h-4 rounded-full bg-white text-[#10995b] text-[9px] font-bold flex items-center justify-center shadow-sm">
@@ -191,7 +170,8 @@ function Navbar() {
       <div className={`fixed inset-0 bg-white z-[90] transition-transform duration-500 ease-in-out ${isOpen ? "translate-y-0" : "-translate-y-full"} md:hidden flex flex-col justify-start overflow-y-auto`}>
         <div className="flex flex-col space-y-7 px-12 pt-28 text-left">
           {mobileMenuItems.map((item, index) => (
-            <Link key={index} onClick={() => setIsOpen(false)} href={item.href} className="flex items-center gap-3 text-sm font-medium uppercase tracking-[0.2em] text-black hover:opacity-50 transition-opacity">
+            <Link key={index} onClick={() => setIsOpen(false)} href={item.href}
+              className="flex items-center gap-3 text-sm font-medium uppercase tracking-[0.2em] text-black hover:opacity-50 transition-opacity">
               {item.label}
               {item.icon && <Search size={14} strokeWidth={2.5} className="text-black/70" />}
             </Link>
@@ -199,7 +179,8 @@ function Navbar() {
         </div>
         <div className={`w-full px-6 pt-12 pb-10 transition-all duration-700 delay-300 ${isOpen ? "opacity-100 translate-y-0" : "opacity-0 translate-y-4"}`}>
           <div className="relative aspect-[16/10] w-full overflow-hidden rounded-sm grayscale-[0.2] hover:grayscale-0 transition-all duration-500 shadow-sm border border-black/5">
-            <Image src="https://colefax-fcaqase9a7bzhphc.z01.azurefd.net/designs-images/large/J0060-02_l.jpg" alt="Campaign Visual" fill className="object-cover" unoptimized priority />
+            <Image src="https://colefax-fcaqase9a7bzhphc.z01.azurefd.net/designs-images/large/J0060-02_l.jpg"
+              alt="Campaign Visual" fill className="object-cover" unoptimized priority />
             <div className="absolute inset-0 bg-black/5 flex items-end p-4">
               <p className="text-[10px] text-white uppercase tracking-[0.4em] font-semibold drop-shadow-sm">Current Season / 2026</p>
             </div>
