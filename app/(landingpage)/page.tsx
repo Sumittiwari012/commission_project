@@ -48,6 +48,15 @@ function page() {
           imgurl7="https://images.pexels.com/photos/11326482/pexels-photo-11326482.jpeg"
           imgurl8="https://images.pexels.com/photos/20323806/pexels-photo-20323806.jpeg"
           imgurl9="https://images.pexels.com/photos/10572289/pexels-photo-10572289.jpeg"
+          href1="/products/classic-silk-saree-1"
+          href2="/products/jamdani-saree"
+          href3="/products/silk-saree"
+          href4="/products/cotton-saree"
+          href5="/products/designer-saree"
+          href6="/products/embroidered-saree"
+          href7="/products/printed-saree"
+          href8="/products/handwoven-saree"
+          href9="/products/banarasi-saree"
         />
         <Curatelook />
         <Bestseller />

@@ -52,7 +52,7 @@ function Shop({
         {/* "New Collections" or "Womens" equivalent - Bottom Right */}
         <div className="absolute bottom-12 right-8 md:bottom-16 md:right-16 flex items-center gap-4 text-white">
           <Link
-            href="/collections/Girls-Floral-Dresses"
+            href="/curation/the-day-dreamer"
             className="pointer-events-auto flex items-center gap-4 group/link"
           >
             <span className="text-[10px] md:text-xs uppercase tracking-[0.5em] font-bold drop-shadow-lg transition-opacity hover:opacity-70">

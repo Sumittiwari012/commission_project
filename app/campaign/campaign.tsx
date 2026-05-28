@@ -4,6 +4,7 @@ import React, { useEffect, useState } from "react";
 import Image from "next/image";
 import Navbar from "@/app/Components/navbar";
 import axios from "axios";
+import Navbar_on_other_pages from "../Components/navbar_on_other_pages";
 
 interface CampaignData {
   id: number;
@@ -58,7 +59,7 @@ function Campaigns() {
 
   return (
     <>
-      <Navbar />
+      <Navbar_on_other_pages />
 
       <div className="bg-white min-h-screen">
         <div className="max-w-[1440px] mx-auto px-4 md:px-12 py-12 pt-24">

@@ -75,8 +75,7 @@ function Navbar() {
         scrolled || isHovered ? "bg-[#10995b] shadow-sm" : "bg-transparent"
       } text-black`}>
         <div className="w-full">
-          <div className="flex h-17 2xl:h-36 items-center justify-between px-5 2xl:px-20 transition-all duration-500"
-            style={{ height: 'clamp(68px, 5vw, 100px)' }}>
+           <div className="flex h-17 2xl:h-32 items-center justify-between px-5 2xl:px-20 transition-all duration-500">
 
             {/* MOBILE HAMBURGER */}
             <button onClick={() => setIsOpen(!isOpen)}
@@ -99,7 +98,7 @@ function Navbar() {
               </div>
 
               {/* CENTER LOGO */}
-              <div className="flex shrink-0 justify-center pt-1.5 2xl:py-4">
+              <div className="flex shrink-0 justify-center pt-2 2xl:py-4">
                 <Link href="/" className="flex items-center">
                   <Image
                     src="https://i.ibb.co/QFK5ZSNM/Wrii-LOGO-website.png"
@@ -122,12 +121,12 @@ function Navbar() {
                 {/* Cart — same logic as CollectionPdt floating button */}
                 <Link
                   href="/account/profile"
-                  className={`relative flex items-center justify-center transition-all duration-300 hover:opacity-50 ${cartBounce ? "animate-bounce" : ""}`}
+                  className={`relative flex items-center justify-center transition-all duration-300 hover:opacity-50 `}
                 >
                   <ShoppingBag size={18} strokeWidth={1.3} className="text-white 2xl:w-10 2xl:h-10" />
-                  <span className="absolute w-5 h-5 rounded-full bg-white/20 animate-ping" />
+                  <span className="absolute w-5 h-5 rounded-full bg-white/20 " />
                   {cartCount > 0 && (
-                    <span className="absolute -top-2 -right-2 w-4 h-4 rounded-full bg-white text-[#10995b] text-[9px] font-bold flex items-center justify-center shadow-sm">
+                    <span className="absolute -top-2 -right-2 w-4 h-4 rounded-full bg-white text-[#10995b] text-[9px] font-bold flex items-center justify-center">
                       {cartCount > 99 ? "99+" : cartCount}
                     </span>
                   )}

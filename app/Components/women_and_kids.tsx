@@ -41,7 +41,7 @@ function Women_And_kids({ imgurl, mobileImgUrl }: addsectionprops) {
             {/* WOMENS LINK (Bottom Right) */}
             <div className="absolute bottom-12 right-8 md:bottom-16 md:right-16 flex items-center gap-4 text-white z-20 pointer-events-none">
                 <Link 
-                    href="/collections/Women-Classic-Denim" 
+                    href="/curation/sarees" 
                     className="pointer-events-auto flex items-center gap-4 group/link"
                 >
                     <span className="text-[10px] md:text-xs uppercase tracking-[0.5em] font-bold drop-shadow-lg transition-opacity hover:opacity-70">
@@ -54,7 +54,7 @@ function Women_And_kids({ imgurl, mobileImgUrl }: addsectionprops) {
             {/* KIDS LINK (Bottom Left) */}
             <div className="absolute bottom-12 left-8 md:bottom-16 md:left-16 flex items-center gap-4 text-white z-20 pointer-events-none">
                 <Link 
-                    href="/collections/Girls-Floral-Dresses" 
+                    href="/curation/jamdani-sarees" 
                     className="pointer-events-auto flex items-center gap-4 group/link"
                 >
                     <div className="w-8 h-[1px] bg-white/50 group-hover/link:w-20 group-hover/link:bg-white transition-all duration-700"></div>
