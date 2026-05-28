@@ -47,7 +47,7 @@ const birdFlapAnimation = {
     <div className="min-h-screen bg-[rgb(85,0,0)] flex items-center justify-center p-6 font-mono selection:bg-red-100 selection:text-red-600 relative overflow-hidden"
     >
       <style jsx>{`
-      @keyframes birdFlyBottom {
+     @keyframes birdFlyBottom {
   0% {
     bottom: 4%;
     left: 108%;
@@ -110,28 +110,6 @@ const birdFlapAnimation = {
     transform: rotate(0deg);
   }
 }
-  @keyframes birdFlap {
-    0% {
-      transform: scaleX(1) scaleY(1);
-    }
-
-    25% {
-      transform: scaleX(0.9) scaleY(1.08);
-    }
-
-    50% {
-      transform: scaleX(1.08) scaleY(0.92);
-    }
-
-    75% {
-      transform: scaleX(0.94) scaleY(1.05);
-    }
-
-    100% {
-      transform: scaleX(1) scaleY(1);
-    }
-  }
-
   @keyframes birdFly {
   0% {
     bottom: 4%;
@@ -189,7 +167,7 @@ const birdFlapAnimation = {
   }
   
   100% {
-    bottom: 58%;
+    bottom: 70%;
     left: 110%;
     opacity: 100;
     transform: rotate(0deg);
@@ -201,12 +179,12 @@ const birdFlapAnimation = {
   animation: birdFly 24s ease-in-out infinite;
       }
   .flyingBirdBottom {
-    width: 120px;
-    height: 100px;
-    animation: birdFlyBottom 22s cubic-bezier(0.42, 0, 0.2, 1) infinite;
-    animation-delay: 6s;
-  
-  }
+  width: 120px;
+  height: 100px;
+  animation: birdFlyBottom 22s cubic-bezier(0.42, 0, 0.2, 1) infinite;
+  animation-delay: 3s;
+  animation-fill-mode: backwards;
+}
 `}</style>
       {/* RIGHT SIDE DECORATIVE IMAGE — pass flowerImg prop with your botanical illustration */}
       {flowerImg && (
