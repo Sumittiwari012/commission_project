@@ -18,8 +18,12 @@ function SearchPage({
   flowerImg='https://cdn.phototourl.com/free/2026-05-28-2fa8e6d6-4615-4a77-ba7e-ce036393ea5c.png'  // leave undefined by default — pass your illustration URL as a prop
 }: SearchPageProps) {
   const [keyword, setKeyword] = useState('');
+  const [showLoomText, setShowLoomText] = useState(false);
   const [is2xl, setIs2xl] = useState(false);
   const router = useRouter();
+  const audio1Ref = useRef<HTMLAudioElement | null>(null);
+const audio2Ref = useRef<HTMLAudioElement | null>(null);
+const clickToggleRef = useRef(false);
 const birdFlapAnimation = {
   animation: 'birdFlap 0.9s ease-in-out infinite',
   transformOrigin: 'center center',
@@ -27,13 +31,38 @@ const birdFlapAnimation = {
 };
   // Detect 2xl (≥1536px) — scale up only above this threshold
   useEffect(() => {
+  audio1Ref.current = new Audio('/audio/click1.mp3');
+  audio2Ref.current = new Audio('/audio/click2.mp3');
+
+  if (audio1Ref.current) {
+    audio1Ref.current.volume = 0.5;
+  }
+
+  if (audio2Ref.current) {
+    audio2Ref.current.volume = 0.5;
+  }
+}, []);
+  useEffect(() => {
     const mq = window.matchMedia('(min-width: 1536px)');
     setIs2xl(mq.matches);
     const handler = (e: MediaQueryListEvent) => setIs2xl(e.matches);
     mq.addEventListener('change', handler);
     return () => mq.removeEventListener('change', handler);
   }, []);
+  const playAlternateClick = () => {
+  const useSecond = clickToggleRef.current;
 
+  const audio = useSecond
+    ? audio2Ref.current
+    : audio1Ref.current;
+
+  if (audio) {
+    audio.currentTime = 0;
+    audio.play();
+  }
+
+  clickToggleRef.current = !clickToggleRef.current;
+};
   const handleSearch = () => {
     if (keyword.trim()) {
       router.push(`/curation/${encodeURIComponent(keyword)}`);
@@ -69,131 +98,116 @@ const birdFlapAnimation = {
     }
   }
 
-     @keyframes birdFlyBottom {
+    
+ @keyframes birdFly {
   0% {
-    bottom: 4%;
-    left: 108%;
+    bottom: 6%;
+    left: 104%;
     opacity: 0;
-    transform: rotate(-8deg);
+    transform: rotate(-12deg);
   }
 
   6% {
     opacity: 1;
   }
 
-  18% {
-    bottom: 10%;
-    left: 92%;
-    transform: rotate(-2deg);
-  }
-
-  32% {
+  /* ENTER FROM BOTTOM RIGHT */
+  16% {
     bottom: 18%;
-    left: 80%;
-    transform: rotate(4deg);
+    left: 92%;
+    transform: rotate(-6deg);
   }
 
-  46% {
-    bottom: 30%;
-    left: 68%;
-    transform: rotate(-3deg);
+  28% {
+    bottom: 36%;
+    left: 84%;
+    transform: rotate(2deg);
   }
 
-  58% {
-    bottom: 42%;
-    left: 58%;
-    transform: rotate(6deg);
-  }
-
-  70% {
-    bottom: 56%;
-    left: 50%;
-    transform: rotate(-2deg);
-  }
-
-  82% {
-    bottom: 70%;
-    left: 46%;
-    transform: rotate(3deg);
-    opacity: 1;
-  }
-
-  92% {
-    bottom: 82%;
-    left: 40%;
-    opacity: 0.4;
-    transform: rotate(0deg);
-  }
-
-  100% {
-    bottom: 95%;
-    left: 34%;
-    opacity: 0;
-    transform: rotate(0deg);
-  }
+  40% {
+  bottom: 52%;
+  left: 78%;
+  transform: rotate(8deg);
 }
-  @keyframes birdFly {
-  0% {
-    bottom: 4%;
-    left: -10%;
-    opacity: 0;
-    transform: rotate(-5deg);
-  }
 
-  8% {
-    opacity: 1;
-  }
+/* APPROACH FLOWERS */
+48% {
+  bottom: 52%;
+  left: 80%;
+  transform: rotate(8deg);
+}
 
-  18% {
-    bottom: 14%;
-    left: 8%;
-    transform: rotate(2deg);
-  }
+56% {
+  bottom: 50%;
+  left: 78%;
+  transform: rotate(8deg);
+}
 
-  32% {
-    bottom: 26%;
-    left: 24%;
-    transform: rotate(-3deg);
-  }
+/* FIRST ARC */
+64% {
+  bottom: 50%;
+  left: 78%;
+  transform: rotate(8deg);
+}
 
-  46% {
-    bottom: 38%;
-    left: 42%;
-    transform: rotate(4deg);
-  }
+/* CROSS OVER FLOWER */
+70% {
+  bottom: 54%;
+  left: 76%;
+  transform: rotate(8deg);
+}
 
-  /* HALT NEAR TOP FLOWER */
-  58% {
-    bottom: 52%;
-    left: 50%;
-    transform: rotate(-2deg);
-  }
+76% {
+  bottom: 54%;
+  left: 76%;
+  transform: rotate(8deg);
+}
 
-  66% {
-    bottom: 52%;
-    left: 60%;
-    transform: rotate(0deg);
-  }
+/* RETURN TO FLOWER */
+82% {
+  bottom: 53%;
+  left: 78%;
+  transform: rotate(8deg);
+}
 
-  74% {
-    bottom: 54%;
-    left: 64%;
-    transform: rotate(2deg);
-  }
+/* HOVER AROUND FLOWER */
+86% {
+  bottom: 53%;
+  left: 78%;
+  transform: rotate(8deg);
+  opacity: 1;
+}
 
-  86% {
-    bottom: 56%;
-    left: 75%;
-    opacity: 1;
-    transform: rotate(-2deg);
-  }
+90% {
+  bottom: 52%;
+  left: 80%;
+  transform: rotate(8deg);
+  opacity: 1;
+}
+
+94% {
+  bottom: 52%;
+  left: 80%;
+  transform: rotate(8deg);
+  opacity: 0.9;
+}
+
+97% {
+  bottom: 52%;
+  left: 80%;
+  transform: rotate(8deg);
+  opacity: 0.45;
+}
+
+/* DISAPPEAR NEAR FLOWER */
+100% {
+  bottom: 52%;
+  left: 80%;
+  opacity: 0;
+  transform: rotate(8deg);
   
-  100% {
-    bottom: 70%;
-    left: 110%;
-    opacity: 100;
-    transform: rotate(0deg);
-  }
+  
+}
 }
   .flyingBird {
   width: 120px;
@@ -227,20 +241,13 @@ const birdFlapAnimation = {
       )}
       <div className="flyingBird absolute pointer-events-none z-20">
   <img
-    src={topRightImg}
+    src='https://cdn.phototourl.com/free/2026-05-28-2e77feb4-068a-4c60-8a97-6362f5059d20.png'
     alt=""
     className="w-full h-full object-contain"
     style={birdFlapAnimation}
   />
 </div>
-<div className="flyingBirdBottom absolute pointer-events-none z-20">
-  <img
-    src={bottomLeftImg}
-    alt=""
-    className="w-full h-full object-contain"
-    style={birdFlapAnimation}
-  />
-</div>
+
       <div
         className="relative z-10 bg-[#fdfaf3] shadow-[0_20px_50px_rgba(0,0,0,0.2)] rounded-sm flex flex-col border border-black/5"
         style={{
@@ -304,15 +311,34 @@ const birdFlapAnimation = {
 
           {/* Textarea */}
           <div className="relative flex-1 flex flex-col">
+  {/* SEARCH ICON */}
+  <Search
+  strokeWidth={3}
+  className="absolute text-red-600 z-20"
+  style={{
+    width: `${24 * scale}px`,
+    height: `${24 * scale}px`,
+    top: `${(LINE_HEIGHT * scale) / 2 - 12}px`,
+    right: `${8 * scale}px`,
+  }}
+/>
             <textarea
               value={keyword}
               placeholder="SEARCH"
-              onChange={(e: ChangeEvent<HTMLTextAreaElement>) => setKeyword(e.target.value)}
+              onChange={(e: ChangeEvent<HTMLTextAreaElement>) => {
+  setKeyword(e.target.value);
+playAlternateClick();
+
+  if (!showLoomText && e.target.value.trim().length > 0) {
+    setShowLoomText(true);
+  }
+}}
               className="w-full flex-1 bg-transparent resize-none focus:outline-none tracking-[0.15em] font-bold text-zinc-800 uppercase p-0 border-none placeholder:text-zinc-400 placeholder:font-normal"
               style={{
                 fontSize: `${18 * scale}px`,
                 lineHeight: `${LINE_HEIGHT * scale}px`,
                 paddingTop: '1px',
+                paddingRight: `${42 * scale}px`,
               }}
               spellCheck="false"
               autoFocus
@@ -331,26 +357,36 @@ const birdFlapAnimation = {
           </div>
 
           {/* Footer */}
-          <div className="flex justify-between items-center shrink-0 pt-2">
-            <Link
-              href={keyword.trim() ? `/curation/${encodeURIComponent(keyword)}` : '#'}
-              className="group flex items-center gap-2 hover:opacity-70 transition-all cursor-pointer"
-            >
-              <Search strokeWidth={3} className="text-red-600"
-                style={{ width: `${13 * scale}px`, height: `${13 * scale}px` }} />
-              <span className="font-black text-red-600 uppercase"
-                style={{ fontSize: `${10 * scale}px`, letterSpacing: '0.3em' }}>
-                Execute Search
-              </span>
-              <ArrowRight className="text-red-600 group-hover:translate-x-1 transition-transform"
-                style={{ width: `${11 * scale}px`, height: `${11 * scale}px` }} />
-            </Link>
-          </div>
+          
         </div>
 
         <div className="absolute inset-0 pointer-events-none opacity-[0.03] rounded-sm bg-[url('https://www.transparenttextures.com/patterns/felt.png')]" />
       </div>
-
+              {/* LOOM TEXT */}
+{/* LOOM TEXT */}
+<div
+  className={`absolute overflow-hidden whitespace-nowrap transition-all duration-30000 ${
+    showLoomText
+      ? 'opacity-100'
+      : 'opacity-0'
+  }`}
+  style={{
+  bottom: '23%',
+  left: '50%',
+  transform: 'translateX(-50%)',
+  color: '#f5e6c8',
+  letterSpacing: '0.08em',
+  fontSize: `${16 * scale}px`,
+  fontFamily: 'monospace',
+  pointerEvents: 'none',
+  width: showLoomText ? '620px' : '0px',
+  transition:
+    'width 15s cubic-bezier(0.22, 1, 0.36, 1), opacity 0.8s ease',
+  textAlign: 'center',
+}}
+>
+  That rhythmic sound you hear is the loom at work.
+</div>
     </div>
   );
 }
