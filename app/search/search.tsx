@@ -209,11 +209,25 @@ const birdFlapAnimation = {
   
 }
 }
-  .flyingBird {
-  width: 120px;
-  height: 100px;
+@keyframes loomReveal {
+  from {
+    clip-path: inset(0 100% 0 0);
+  }
+
+  to {
+    clip-path: inset(0 0 0 0);
+  }
+}
+
+.loomReveal {
+  animation: loomReveal 12s ease-in forwards;
+}
+ .flyingBird {
+  width: clamp(140px, 8vw, 420px);
+  height: auto;
+  aspect-ratio: 1 / 1;
   animation: birdFly 24s ease-in-out infinite;
-      }
+}
   .flyingBirdBottom {
   width: 120px;
   height: 100px;
@@ -365,25 +379,24 @@ playAlternateClick();
               {/* LOOM TEXT */}
 {/* LOOM TEXT */}
 <div
-  className={`absolute overflow-hidden whitespace-nowrap transition-all duration-30000 ${
-    showLoomText
-      ? 'opacity-100'
-      : 'opacity-0'
-  }`}
+  className={`absolute ${
+  showLoomText ? "loomReveal opacity-100" : "opacity-0"
+}`}
   style={{
-  bottom: '23%',
-  left: '50%',
-  transform: 'translateX(-50%)',
-  color: '#f5e6c8',
-  letterSpacing: '0.08em',
-  fontSize: `${16 * scale}px`,
-  fontFamily: 'monospace',
-  pointerEvents: 'none',
-  width: showLoomText ? '620px' : '0px',
-  transition:
-    'width 15s cubic-bezier(0.22, 1, 0.36, 1), opacity 0.8s ease',
-  textAlign: 'center',
-}}
+    bottom: is2xl ? "20%" : "20%",
+    left: "50%",
+    transform: "translateX(-50%)",
+    color: "#f5e6c8",
+    letterSpacing: "0.12em",
+    fontSize: is2xl ? "34px" : "15px",
+    pointerEvents: "none",
+    width: is2xl ? "1400px" : "900px",
+    maxWidth: "90vw",
+    textAlign: "center",
+    lineHeight: 1.6,
+    transition:
+      "width 15s cubic-bezier(0.22,1,0.36,1), opacity 0.8s ease",
+  }}
 >
   That rhythmic sound you hear is the loom at work.
 </div>
