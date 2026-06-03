@@ -72,8 +72,8 @@ function Craft() {
           --half-w: calc(var(--shuttle-w) / 2);
           --half-h: calc(var(--shuttle-h) / 2);
           
-          --trace-thickness: 2px;
-          --trace-half: 3px; /* Hardcoded integer to prevent layout thrashing */
+          --trace-thickness: 1px;
+          --trace-half: 0.6px; /* Hardcoded integer to prevent layout thrashing */
 
           /* 1. Raw percentages for the vertical distribution */
           --max-h: calc(100% - var(--shuttle-h)); 
