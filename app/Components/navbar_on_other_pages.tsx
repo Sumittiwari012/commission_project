@@ -111,7 +111,7 @@ function Navbar_on_other_pages() {
              <div className="flex items-center justify-between pr-28 2xl:pr-36">
                 <Link href="/shop/" className="text-[13px] 2xl:text-[28px] tracking-[0.15em] uppercase font-normal text-black hover:opacity-50 transition-opacity">Shop</Link>
                 <Link href="/campaign" className="text-[13px] 2xl:text-[28px] tracking-[0.15em] uppercase font-normal text-black hover:opacity-50 transition-opacity">Campaign</Link>
-                <Link href="/collections/new-arrivals" className="text-[13px] 2xl:text-[28px] tracking-[0.15em] uppercase font-normal text-black hover:opacity-50 transition-opacity">Craft</Link>
+                <Link href="/craft" className="text-[13px] 2xl:text-[28px] tracking-[0.15em] uppercase font-normal text-black hover:opacity-50 transition-opacity">Craft</Link>
                 <Link href="/curation" className="text-[13px] 2xl:text-[28px] tracking-[0.15em] uppercase font-normal text-black hover:opacity-50 transition-opacity">New In</Link>
               </div>
 
