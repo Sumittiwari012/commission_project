@@ -17,18 +17,14 @@ const crafts = [
 ]
 
 function Craft() {
-  const canvasRef = useRef(null);
-  const faceImageRef = useRef(null);
-  
-  // Audio Refs
-  const click1 = useRef(null);
-  const click2 = useRef(null);
-
-  const revealY = useRef(0);
-  const revealX = useRef(0);
-  const isGoingRight = useRef(true); 
-  const animationFrameId = useRef<number>(0);
-
+  const canvasRef = useRef<HTMLCanvasElement>(null);
+const faceImageRef = useRef<HTMLImageElement | null>(null);
+const click1 = useRef<HTMLAudioElement | null>(null);
+const click2 = useRef<HTMLAudioElement | null>(null);
+const revealY = useRef<number>(0);
+const revealX = useRef<number>(0);
+const isGoingRight = useRef<boolean>(true);
+const animationFrameId = useRef<number>(0);
   useEffect(() => {
     const canvas = canvasRef.current;
     if (!canvas) return;
