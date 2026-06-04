@@ -85,7 +85,7 @@ const animationFrameId = useRef<number>(0);
       ctx.restore();
     };
 
-    const drawPetal = (x, y, w, h, color, rotation = 0) => {
+    const drawPetal = (x: number, y: number, w: number, h: number, color: string, rotation = 0) => {
       ctx.save();
       ctx.translate(x, y);
       ctx.rotate(rotation);
@@ -100,7 +100,7 @@ const animationFrameId = useRef<number>(0);
       ctx.restore();
     };
 
-    const drawCenter = (cx, cy, size) => {
+    const drawCenter = (cx: number, cy: number, size: number) => {
       ctx.save();
       ctx.beginPath();
       ctx.ellipse(cx, cy, size * 0.12, size * 0.06, 0, 0, Math.PI * 2);
@@ -109,7 +109,7 @@ const animationFrameId = useRef<number>(0);
       ctx.restore();
     };
 
-    const drawLotus = (cx, baseY, size) => {
+    const drawLotus = (cx: number, baseY: number, size: number) => {
       const flowerY = baseY - size * 0.18;
       const centerY = flowerY + 22;
       const pw = size * 0.45;
