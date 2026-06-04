@@ -27,7 +27,7 @@ function Craft() {
   const revealY = useRef(0);
   const revealX = useRef(0);
   const isGoingRight = useRef(true); 
-  const animationFrameId = useRef();
+  const animationFrameId = useRef<number>(0);
 
   useEffect(() => {
     const canvas = canvasRef.current;
