@@ -66,43 +66,74 @@ function SearchPage({
 
   // Bird base size — scales up at 2xl
   const birdSize = 120 * scale;
+const [isMobile, setIsMobile] = useState(false);
 
+useEffect(() => {
+  const mq = window.matchMedia('(max-width: 767px)');
+  setIsMobile(mq.matches);
+  const handler = (e: MediaQueryListEvent) => setIsMobile(e.matches);
+  mq.addEventListener('change', handler);
+  return () => mq.removeEventListener('change', handler);
+}, []);
   return (
     <div
       className="min-h-screen bg-[rgb(85,0,0)] flex items-center justify-center p-6 font-mono selection:bg-red-100 selection:text-red-600 relative overflow-hidden"
     >
-      <style jsx>{`
-        @keyframes birdFlap {
-          0%   { transform: scaleX(1)    scaleY(1);    }
-          25%  { transform: scaleX(0.9)  scaleY(1.08); }
-          50%  { transform: scaleX(1.08) scaleY(0.92); }
-          75%  { transform: scaleX(0.94) scaleY(1.05); }
-          100% { transform: scaleX(1)    scaleY(1);    }
-        }
+     <style jsx>{`
+  @keyframes birdFlap {
+    0%   { transform: scaleX(1)    scaleY(1);    }
+    25%  { transform: scaleX(0.9)  scaleY(1.08); }
+    50%  { transform: scaleX(1.08) scaleY(0.92); }
+    75%  { transform: scaleX(0.94) scaleY(1.05); }
+    100% { transform: scaleX(1)    scaleY(1);    }
+  }
 
-        @keyframes birdFly {
-          0%  { bottom: 6%;  left: 104%; opacity: 0; transform: rotate(-12deg); }
-          6%  { opacity: 1; }
-          16% { bottom: 18%; left: 92%;  transform: rotate(-6deg); }
-          28% { bottom: 36%; left: 84%;  transform: rotate(2deg);  }
-          40% { bottom: 52%; left: 78%;  transform: rotate(8deg);  }
-          48% { bottom: 52%; left: 80%;  transform: rotate(8deg);  }
-          56% { bottom: 50%; left: 78%;  transform: rotate(8deg);  }
-          64% { bottom: 50%; left: 78%;  transform: rotate(8deg);  }
-          70% { bottom: 54%; left: 76%;  transform: rotate(8deg);  }
-          76% { bottom: 54%; left: 76%;  transform: rotate(8deg);  }
-          82% { bottom: 53%; left: 78%;  transform: rotate(8deg);  }
-          86% { bottom: 53%; left: 78%;  transform: rotate(8deg);  opacity: 1;   }
-          90% { bottom: 52%; left: 80%;  transform: rotate(8deg);  opacity: 1;   }
-          94% { bottom: 52%; left: 80%;  transform: rotate(8deg);  opacity: 0.9; }
-          97% { bottom: 52%; left: 80%;  transform: rotate(8deg);  opacity: 0.45;}
-          100%{ bottom: 52%; left: 80%;  transform: rotate(8deg);  opacity: 0;   }
-        }
+  /* Desktop path — unchanged */
+  @keyframes birdFlyDesktop {
+    0%  { bottom: 6%;  left: 104%; opacity: 0; transform: rotate(-12deg); }
+    6%  { opacity: 1; }
+    16% { bottom: 18%; left: 92%;  transform: rotate(-6deg); }
+    28% { bottom: 36%; left: 84%;  transform: rotate(2deg);  }
+    40% { bottom: 52%; left: 78%;  transform: rotate(8deg);  }
+    48% { bottom: 52%; left: 80%;  transform: rotate(8deg);  }
+    56% { bottom: 50%; left: 78%;  transform: rotate(8deg);  }
+    64% { bottom: 50%; left: 78%;  transform: rotate(8deg);  }
+    70% { bottom: 54%; left: 76%;  transform: rotate(8deg);  }
+    76% { bottom: 54%; left: 76%;  transform: rotate(8deg);  }
+    82% { bottom: 53%; left: 78%;  transform: rotate(8deg);  }
+    86% { bottom: 53%; left: 78%;  transform: rotate(8deg);  opacity: 1;   }
+    90% { bottom: 52%; left: 80%;  transform: rotate(8deg);  opacity: 1;   }
+    94% { bottom: 52%; left: 80%;  transform: rotate(8deg);  opacity: 0.9; }
+    97% { bottom: 52%; left: 80%;  transform: rotate(8deg);  opacity: 0.45;}
+    100%{ bottom: 52%; left: 80%;  transform: rotate(8deg);  opacity: 0;   }
+  }
 
-        .flyingBird {
-          animation: birdFly 24s ease-in-out infinite;
-        }
-      `}</style>
+  /* Mobile path — orbits where the flower actually sits: ~48% left, ~30% bottom */
+  /* Mobile path — travels further left before hovering near the flower */
+/* Mobile path — shifted further left */
+/* Mobile path — shifted even further left */
+@keyframes birdFlyMobile {
+  0%  { bottom: 10%; left: 100%; opacity: 0; transform: rotate(-12deg); }
+  6%  { opacity: 1; }
+  16% { bottom: 18%; left: 55%;  transform: rotate(-6deg); }
+  28% { bottom: 26%; left: 32%;  transform: rotate(2deg);  }
+  40% { bottom: 32%; left: 12%;  transform: rotate(8deg);  }
+  48% { bottom: 34%; left: 6%;   transform: rotate(8deg);  }
+  56% { bottom: 30%; left: 10%;  transform: rotate(8deg);  }
+  64% { bottom: 30%; left: 10%;  transform: rotate(8deg);  }
+  70% { bottom: 36%; left: 4%;   transform: rotate(8deg);  }
+  76% { bottom: 36%; left: 4%;   transform: rotate(8deg);  }
+  82% { bottom: 32%; left: 8%;   transform: rotate(8deg);  }
+  86% { bottom: 32%; left: 8%;   transform: rotate(8deg);  opacity: 1;   }
+  90% { bottom: 30%; left: 12%;  transform: rotate(8deg);  opacity: 1;   }
+  94% { bottom: 25%; left: 12%;  transform: rotate(8deg);  opacity: 0.9; }
+  97% { bottom: 25%; left: 12%;  transform: rotate(8deg);  opacity: 0.45;}
+  100%{ bottom: 30%; left: 12%;  transform: rotate(8deg);  opacity: 0;   }
+}
+  .flyingBird {
+    animation: ${isMobile ? 'birdFlyMobile' : 'birdFlyDesktop'} 24s ease-in-out infinite;
+  }
+`}</style>
 
       {/* RIGHT SIDE DECORATIVE IMAGE */}
       {flowerImg && (

@@ -99,7 +99,7 @@ function About() {
     <main className="bg-[#f7f3ec] text-[#1a1a1a] overflow-hidden">
 
       {/* HERO */}
-      <section className="min-h-screen flex items-center justify-center px-8 md:px-16 xl:px-24 2xl:px-32">
+     <section className="min-h-screen flex items-center justify-center px-8 pt-28 md:pt-0 md:px-16 xl:px-24 2xl:px-32">
   <div className="
       w-full
       max-w-[2400px]

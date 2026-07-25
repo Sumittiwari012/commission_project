@@ -72,7 +72,7 @@ function Navbar_on_other_pages() {
   const mobileMenuItems = [
     { label: "Shop", href: "/shop" },
     { label: "Campaign", href: "/campaign" },
-    { label: "Craft", href: "/collections/new-arrivals" },
+    { label: "Craft", href: "/craft" },
     { label: "About", href: "/about" },
     { label: "New In", href: "/curation" },
     { label: "Search", href: "/search", icon: true },
@@ -91,18 +91,30 @@ function Navbar_on_other_pages() {
     <>
       <nav className="fixed top-0 left-0 right-0 z-[100] bg-white shadow-sm transition-all duration-500 text-black">
         <div className="w-full">
-          <div className="flex h-17 2xl:h-36 items-center justify-between px-5 2xl:px-20 transition-all duration-500">
+          <div className="relative flex h-28 md:h-17 2xl:h-32 items-center justify-between px-5 2xl:px-20 transition-all duration-500">
 
-            {/* MOBILE HAMBURGER */}
-            <button
-              onClick={() => setIsOpen(!isOpen)}
-              className="flex flex-1 md:hidden flex-col gap-1.5 z-[110] relative focus:outline-none"
-              aria-label="Toggle Menu"
-            >
-              <span className={`h-[1.5px] bg-black transition-all duration-300 ${isOpen ? "w-6 rotate-45 translate-y-2" : "w-6"}`} />
-              <span className={`h-[1.5px] bg-black transition-all duration-300 ${isOpen ? "opacity-0" : "w-4"}`} />
-              <span className={`h-[1.5px] bg-black transition-all duration-300 ${isOpen ? "w-6 -rotate-45 -translate-y-2" : "w-6"}`} />
-            </button>
+  {/* MOBILE HAMBURGER */}
+  <button onClick={() => setIsOpen(!isOpen)}
+    className="flex flex-1 md:hidden flex-col gap-2 z-[110] relative focus:outline-none"
+    aria-label="Toggle Menu">
+    <span className={`h-[2px] bg-black transition-all duration-300 ${isOpen ? "w-8 rotate-45 translate-y-2.5" : "w-8"}`} />
+    <span className={`h-[2px] bg-black transition-all duration-300 ${isOpen ? "opacity-0" : "w-5"}`} />
+    <span className={`h-[2px] bg-black transition-all duration-300 ${isOpen ? "w-8 -rotate-45 -translate-y-2.5" : "w-8"}`} />
+  </button>
+             <Link
+  href="/"
+  className="md:hidden absolute top-1/20 left-1/2 -translate-x-1/2 flex items-center z-[105]"
+>
+  <Image
+    src="https://i.ibb.co/QFK5ZSNM/Wrii-LOGO-website.png"
+    alt="WRII Studio"
+    width={110}
+    height={55}
+    priority
+    unoptimized
+    className="object-contain w-[110px] h-auto"
+  />
+</Link>
 
             {/* FULL NAV ROW */}
             <div className="hidden md:grid flex-1 grid-cols-[1fr_auto_1fr] items-center">
