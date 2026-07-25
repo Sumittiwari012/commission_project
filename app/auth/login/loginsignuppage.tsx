@@ -80,9 +80,9 @@ function LoginSignupPage() {
 
   return (
     <>
-    <Navbar_on_other_pages/>
+    
     <main className="relative flex min-h-screen w-full overflow-hidden font-['Instrument_Sans']">
-      
+      <Navbar_on_other_pages/>
       {/* BACKGROUND SECTION */}
       <section className="absolute inset-0 md:relative md:block md:w-[65%] h-full overflow-hidden bg-slate-100">
         <img 
