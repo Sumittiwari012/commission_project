@@ -1,7 +1,7 @@
 "use client";
 import { useAuth } from '@/context/AuthContext';
 import { updateMemoryToken } from '@/lib/app';
-import React, { useState } from 'react';
+import React, { useState, useRef, useLayoutEffect } from 'react';
 import api from '@/lib/app';
 import { useRouter } from 'next/navigation';
 import Navbar_on_other_pages from '@/app/Components/navbar_on_other_pages';
@@ -20,20 +20,34 @@ const INDIAN_STATES = [
 function LoginSignupPage() {
   const router = useRouter();
   const [isLogin, setIsLogin] = useState(true);
+  const navRef = useRef<HTMLDivElement>(null);
+  const [navHeight, setNavHeight] = useState(0);
+
+  useLayoutEffect(() => {
+    if (!navRef.current) return;
+    const el = navRef.current;
+
+    const updateHeight = () => setNavHeight(el.offsetHeight);
+    updateHeight();
+
+    const observer = new ResizeObserver(updateHeight);
+    observer.observe(el);
+    return () => observer.disconnect();
+  }, []);
+
   const [formData, setFormData] = useState({
     firstName: '', 
     lastName: '', 
     dateOfBirth: '',
     email: '', 
     phoneNumber: '', 
-    state: '1', // Keep as string initially for the input value
+    state: '1', 
     address1: '', 
     address2: '', 
     pinCode: '', 
     password: ''
   });
 
-  // 2. Updated handleChange to support both Input and Select elements
   const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>) => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
   };
@@ -43,7 +57,6 @@ function LoginSignupPage() {
   const handleRegisterSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     try {
-        // 3. CRITICAL: Cast strings to Numbers for the Backend DTO
         const submissionData = {
             ...formData,
             state: parseInt(formData.state, 10),
@@ -80,18 +93,25 @@ function LoginSignupPage() {
 
   return (
     <>
-    <div className="fixed inset-x-0 top-0 z-[100]">
+    {/* NAVBAR — fixed to viewport, always on top */}
+    <div ref={navRef} className="fixed inset-x-0 top-0 z-[100]">
       <Navbar_on_other_pages />
     </div>
-    
-    <main className="relative flex min-h-screen w-full overflow-hidden font-['Instrument_Sans']">
-      
+
+    <main
+      className="relative flex w-full font-['Instrument_Sans']"
+      // Push content down by the exact navbar height, and take up the remaining screen height
+      style={{ marginTop: `${navHeight}px`, minHeight: `calc(100vh - ${navHeight}px)` }}
+    >
+
       {/* BACKGROUND SECTION */}
-      <section className="absolute inset-0 md:relative md:block md:w-[65%] h-full overflow-hidden bg-slate-100">
+      <section
+        className="absolute inset-0 md:relative md:w-[65%] overflow-hidden bg-slate-100"
+      >
         <img 
           src="https://images.unsplash.com/photo-1490481651871-ab68de25d43d?q=80&w=2070" 
           alt="Editorial" 
-          className="w-full h-full object-cover grayscale-[20%] brightness-90"
+          className="w-full h-full object-cover grayscale-[20%] brightness-90 absolute inset-0"
         />
         <div className="absolute inset-0 bg-black/10 hidden md:flex items-end p-20">
           <div className="text-white">
@@ -102,14 +122,12 @@ function LoginSignupPage() {
       </section>
 
       {/* FORM SECTION */}
-      <section className="relative w-full md:w-[35%] min-h-screen bg-white flex flex-col justify-between p-8 lg:p-12 z-10">
+      <section className="relative w-full md:w-[35%] bg-white flex flex-col justify-between p-8 lg:p-12 z-10">
         <div className="md:text-left text-center">
-           <h3 className="text-xs uppercase tracking-[0.5em] font-bold text-black">
-             Wrii Studio<span className="text-blue-500">.</span>
-           </h3>
+           
         </div>
 
-        <div className="space-y-8">
+        <div className="space-y-8 my-8 md:my-0">
           <header className="md:text-left text-center">
             <h1 className="text-3xl font-serif italic mb-2 text-slate-900">
               {isLogin ? "Welcome Back" : "Join the Studio"}
@@ -163,9 +181,9 @@ function LoginSignupPage() {
           </form>
 
           <footer className="text-center pt-2">
-            <p className="text-[9px] uppercase tracking-widest text-slate-400">
+            <p className="text-[12px] uppercase tracking-widest text-slate-400">
               {isLogin ? "New to the studio?" : "Already a member?"} 
-              <button onClick={() => setIsLogin(!isLogin)} className="text-black font-bold border-b border-black ml-2">
+              <button type="button" onClick={() => setIsLogin(!isLogin)} className="text-black font-bold border-b border-black ml-2">
                 {isLogin ? "Create Account" : "Sign In"}
               </button>
             </p>
@@ -173,12 +191,11 @@ function LoginSignupPage() {
         </div>
 
         <footer className="text-[9px] uppercase tracking-[0.3em] text-slate-300 text-center md:text-left">
-          &copy; 2026 Wrii Studio.
+          &copy; {new Date().getFullYear()} Wrii Studio.
         </footer>
       </section>
     </main>
     </>
-    
   );
 }
 
