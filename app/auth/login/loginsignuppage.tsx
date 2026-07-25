@@ -4,6 +4,7 @@ import { updateMemoryToken } from '@/lib/app';
 import React, { useState } from 'react';
 import api from '@/lib/app';
 import { useRouter } from 'next/navigation';
+import Navbar_on_other_pages from '@/app/Components/navbar_on_other_pages';
 
 // 1. Define the States data outside the component
 const INDIAN_STATES = [
@@ -78,6 +79,8 @@ function LoginSignupPage() {
   };
 
   return (
+    <>
+    <Navbar_on_other_pages/>
     <main className="relative flex min-h-screen w-full overflow-hidden font-['Instrument_Sans']">
       
       {/* BACKGROUND SECTION */}
@@ -171,6 +174,8 @@ function LoginSignupPage() {
         </footer>
       </section>
     </main>
+    </>
+    
   );
 }
 
